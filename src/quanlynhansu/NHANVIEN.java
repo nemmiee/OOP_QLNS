@@ -1,6 +1,10 @@
 package quanlynhansu;
 
-public class NHANVIEN {
+import java.io.Serializable;
+
+public class NHANVIEN implements Serializable {
+    private static final long serialVersionUID = 1L;
+
 
     protected String maNhanVien;
     protected String hoTen;

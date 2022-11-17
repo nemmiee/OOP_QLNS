@@ -1,6 +1,9 @@
 package quanlynhansu;
 
-public class HOPDONG {
+import java.io.Serializable;
+
+public class HOPDONG implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private NGAY ngayBatDauHopDong;
     private NGAY ngayKetThucHopDong;

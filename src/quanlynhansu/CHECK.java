@@ -4,7 +4,11 @@
  */
 package quanlynhansu;
 
-public class CHECK {
+import java.io.Serializable;
+
+public class CHECK implements Serializable {
+    private static final long serialVersionUID = 1L;
+
 
     public String kiemTraMaNhanVien() {
         String input;

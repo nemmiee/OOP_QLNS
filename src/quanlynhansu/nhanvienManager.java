@@ -14,7 +14,8 @@ public class nhanvienManager {
     CHECK check = new CHECK();
 
     public nhanvienManager() {
-        nvList = new NHANVIEN[0];
+        fnv = new FileNhanVien();
+        nvList = fnv.read();
     }
 
     public nhanvienManager(nhanvienManager copy) {
@@ -30,16 +31,18 @@ public class nhanvienManager {
     }
 
     public NHANVIEN[] add(NHANVIEN[] list, NHANVIEN nv) {
-        NHANVIEN[] newList = new NHANVIEN[list.length + 1];
         if (isEmpty(list)) {
+            NHANVIEN[] newList = new NHANVIEN[1];
             newList[0] = nv;
+            return newList;
         } else {
+            NHANVIEN[] newList = new NHANVIEN[list.length + 1];
             for (int i = 0; i < list.length; ++i) {
                 newList[i] = list[i];
             }
             newList[list.length] = nv;
+            return newList;
         }
-        return newList;
     }
 
     public NHANVIEN[] remove(NHANVIEN[] list, int index) {
@@ -58,6 +61,9 @@ public class nhanvienManager {
     }
 
     public boolean isEmpty(NHANVIEN[] list) {
+        if (list == null) {
+            return true;
+        }
         return (list.length == 0);
     }
 
@@ -68,9 +74,10 @@ public class nhanvienManager {
             NHANVIEN nv = new NHANVIEN();
             nv.nhapNhanVien(maNV);
             nvList = add(nvList, nv);
+            fnv.write(nvList);
         } else {
-            boolean isExist = false;
-            while (true) {                
+            while (true) {
+                boolean isExist = false;
                 for (int i = 0; i < nvList.length; ++i) {
                     if (nvList[i].maNhanVien.equals(maNV)) {
                         isExist = true;
@@ -81,6 +88,7 @@ public class nhanvienManager {
                     NHANVIEN nv = new NHANVIEN();
                     nv.nhapNhanVien(maNV);
                     nvList = add(nvList, nv);
+                    fnv.write(nvList);
                     break;
                 } else {
                     System.out.print("Da ton tai ma nhan vien\nMoi nhap lai ma nhan vien: ");
@@ -167,6 +175,8 @@ public class nhanvienManager {
         }
         if (!isExist) {
             System.out.println("  Ma nhan vien \"" + maNV + "\" khong ton tai!!!");
+        } else {
+            fnv.write(nvList);
         }
     }
 
@@ -184,6 +194,8 @@ public class nhanvienManager {
         }
         if (!isExist) {
             System.out.println("  Ma nhan vien \"" + maNV + "\" khong ton tai!!!");
+        } else {
+            fnv.write(nvList);
         }
     }
 
@@ -194,9 +206,9 @@ public class nhanvienManager {
             System.out.println("+-+-+-+-+-+-+-+ Xuat danh sach nhan vien +-+-+-+-+-+-+-+\n");
             for (int i = 0; i < nvList.length; ++i) {
                 nvList[i].xuatNhanVien();
-                System.out.println("-----");
+                System.out.println("-----\n");
             }
-            System.out.println("\n+-+-+-+-+-+-+-+ Ket thuc danh sach nhan vien +-+-+-+-+-+-+-+\n");
+            System.out.println("+-+-+-+-+-+-+-+ Ket thuc danh sach nhan vien +-+-+-+-+-+-+-+\n");
         }
     }
 

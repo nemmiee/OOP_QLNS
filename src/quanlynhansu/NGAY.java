@@ -1,6 +1,9 @@
 package quanlynhansu;
 
-public class NGAY {
+import java.io.Serializable;
+
+public class NGAY implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int ngay;
     private int thang;

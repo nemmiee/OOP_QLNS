@@ -1,6 +1,10 @@
 package quanlynhansu;
 
-public class DIACHI {
+import java.io.Serializable;
+
+public class DIACHI implements Serializable {
+    private static final long serialVersionUID = 1L;
+
 
     private String soNha;
     private String tenDuong;
