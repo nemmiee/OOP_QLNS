@@ -310,12 +310,21 @@ public class nhanvienManager {
             return arrC;
         }
     }
+    
+    public static NHANVIEN getNhanVien(NHANVIEN[] list, String maNV) {
+        for (int i = 0; i < list.length; ++i) {
+            if (list[i].getMaNhanVien().equals(maNV)) {
+                return list[i];
+            }
+        }
+        return null;
+    }
 
     public void printListALL() {
         if (isEmpty(nvList)) {
             System.out.println("Danh sach rong.");
         } else {
-            System.out.println("+-+-+-+-+-+-+-+ Xuat danh sach nhan vien +-+-+-+-+-+-+-+\n");
+            System.out.println("+-+-+-+-+-+-+-+-+-+ Danh sach nhan vien +-+-+-+-+-+-+-+-+-+\n");
             for (int i = 0; i < nvList.length; ++i) {
                 nvList[i].xuatNhanVien();
                 System.out.println("-----\n");

@@ -1,106 +1,120 @@
 package quanlynhansu;
 
-public class CHAMCONG {
+import java.io.Serializable;
 
-    private NGAY ngayChamCong;
-    private String maNhanVien;
-    private int soLanDiTre;
-    private int soNgayNghi;
-    private int soGioTangCa;
-    private KHENTHUONG khenThuong;
-    
+public class CHAMCONG implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private String maNV;
+    private int thang;
+    private int nam;
+    private int duNgayCong;
+    private int nuaNgayCong;
+    private int khongCong;
+
     CHECK check = new CHECK();
 
     public CHAMCONG() {
-        ngayChamCong = new NGAY();
-        khenThuong = new KHENTHUONG();
+        maNV = "";
+        thang = 0;
+        nam = 0;
+        duNgayCong = 0;
+        nuaNgayCong = 0;
+        khongCong = 0;
     }
 
-    public CHAMCONG(NGAY ngayChamCong, String maNhanVien, int soLanDiTre, int soNgayNghi, int soGioTangCa, KHENTHUONG khenThuong) {
-        this.ngayChamCong = ngayChamCong;
-        this.maNhanVien = maNhanVien;
-        this.soLanDiTre = soLanDiTre;
-        this.soNgayNghi = soNgayNghi;
-        this.soGioTangCa = soGioTangCa;
-        this.khenThuong = khenThuong;
+    public CHAMCONG(String maNV, int thang, int nam, int duNgayCong, int nuaNgayCong, int khongCong) {
+        this.maNV = maNV;
+        this.thang = thang;
+        this.nam = nam;
+        this.duNgayCong = duNgayCong;
+        this.nuaNgayCong = nuaNgayCong;
+        this.khongCong = khongCong;
     }
 
-    public NGAY getNgayChamCong() {
-        return ngayChamCong;
+    public int getThang() {
+        return thang;
     }
 
-    public void setNgayChamCong(NGAY ngayChamCong) {
-        this.ngayChamCong = ngayChamCong;
+    public void setThang(int thang) {
+        this.thang = thang;
     }
 
-    public String getMaNhanVien() {
-        return maNhanVien;
+    public int getNam() {
+        return nam;
     }
 
-    public void setMaNhanVien(String maNhanVien) {
-        this.maNhanVien = maNhanVien;
+    public void setNam(int nam) {
+        this.nam = nam;
+    }
+    
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
-    public int getSoLanDiTre() {
-        return soLanDiTre;
+    public String getMaNV() {
+        return maNV;
     }
 
-    public void setSoLanDiTre(int soLanDiTre) {
-        this.soLanDiTre = soLanDiTre;
+    public int getDuNgayCong() {
+        return duNgayCong;
     }
 
-    public int getSoNgayNghi() {
-        return soNgayNghi;
+    public void setDuNgayCong(int duNgayCong) {
+        this.duNgayCong = duNgayCong;
     }
 
-    public void setSoNgayNghi(int soNgayNghi) {
-        this.soNgayNghi = soNgayNghi;
+    public int getNuaNgayCong() {
+        return nuaNgayCong;
     }
 
-    public int getSoGioTangCa() {
-        return soGioTangCa;
+    public void setNuaNgayCong(int nuaNgayCong) {
+        this.nuaNgayCong = nuaNgayCong;
     }
 
-    public void setSoGioTangCa(int soGioTangCa) {
-        this.soGioTangCa = soGioTangCa;
+    public int getKhongCong() {
+        return khongCong;
     }
 
-    public KHENTHUONG getKhenThuong() {
-        return khenThuong;
+    public void setKhongCong(int khongCong) {
+        this.khongCong = khongCong;
     }
 
-    public void setKhenThuong(KHENTHUONG khenThuong) {
-        this.khenThuong = khenThuong;
+    public float tongNgayCong() {
+        return (float) (duNgayCong * 1 + nuaNgayCong * 0.5 + khongCong * 0);
     }
 
-    public void nhapChamCong() {
-        System.out.print("Ngay cham cong->");
-        this.ngayChamCong.nhapNgay();
-        System.out.print("Ma nhan vien ->");
-        this.maNhanVien = check.kiemTraMaNhanVien();
-        System.out.print("So lan di tre -> ");
-        this.soLanDiTre = (int) check.kiemTraSoNguyenDuong();
-        System.out.print("So ngay nghi -> ");
-        this.soNgayNghi = (int) check.kiemTraSoNguyenDuong();
-        System.out.print("So gio tang ca -> ");
-        this.soGioTangCa = (int) check.kiemTraSoNguyenDuong();
-        System.out.println("Khen thuong: ");
-        this.khenThuong.nhapKhenThuong();
-    }
-
-    public void xuatChamCong() {
-        System.out.println("Ngay cham cong: " + this.ngayChamCong);
-        System.out.println("Ma nhan vien: " + this.maNhanVien);
-        System.out.println("So lan di tre: " + this.soLanDiTre);
-        System.out.println("So ngay nghi: " + this.soNgayNghi);
-        System.out.println("So gio tang ca: " + this.soGioTangCa);
-        khenThuong.xuatKhenThuong();
+    public void nhap(String maNV, int thang, int nam) {
+        int dungGio, diTre, nghi;
+        float tong;
+        while (true) {
+            System.out.print("So ngay di dung gio: ");
+            dungGio = (int) CHECK.kiemTraSoNguyenDuong();
+            System.out.print("So ngay di tre: ");
+            diTre = (int) CHECK.kiemTraSoNguyenDuong();
+            System.out.print("So ngay nghi: ");
+            nghi = (int) CHECK.kiemTraSoNguyenDuong();
+            tong = (float) (dungGio * 1 + diTre * 0.5 + nghi * 0);
+            if (tong <= check.lastDayOfMonth(thang, nam)) {
+                break;
+            }
+            else {
+                System.out.println("Du lieu nhap vuot qua so ngay cua " + thang + "/" + nam);
+            }
+        }
+        this.maNV = maNV;
+        this.thang = thang;
+        this.nam = nam;
+        this.duNgayCong = dungGio;
+        this.nuaNgayCong = diTre;
+        this.khongCong = nghi;
     }
 
     @Override
     public String toString() {
-        return "CHAMCONG [ngayChamCong=" + ngayChamCong + ", maNhanVien=" + maNhanVien + ", soLanDiTre=" + soLanDiTre
-                + ", soNgayNghi=" + soNgayNghi + ", soGioTangCa=" + soGioTangCa + ", khenThuong=" + khenThuong + "]";
+        return "Ma nhan vien: " + maNV + " - So ngay di dung gio: " + duNgayCong + " - So ngay di tre: " + nuaNgayCong
+                + " - So ngay nghi: " + khongCong + " - Tong ngay cong: " + tongNgayCong();
     }
 
 }
