@@ -3,24 +3,35 @@ package quanlynhansu;
 import java.io.Serializable;
 
 public class THANNHAN implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
+    private String maNV;
     private String hoTenThanNhan;
     private String gioiTinh;
     private NGAY ngaySinhThanNhan;
     private String quanHeThanNhan;
-    
+
     CHECK check = new CHECK();
 
-    public THANNHAN(String hoTenThanNhan, String gioiTinh, NGAY ngaySinhThanNhan, String quanHeThanNhan) {
+    public THANNHAN() {
+        ngaySinhThanNhan = new NGAY();
+    }
+
+    public THANNHAN(String maNV, String hoTenThanNhan, String gioiTinh, NGAY ngaySinhThanNhan, String quanHeThanNhan) {
+        this.maNV = maNV;
         this.hoTenThanNhan = hoTenThanNhan;
         this.gioiTinh = gioiTinh;
         this.ngaySinhThanNhan = ngaySinhThanNhan;
         this.quanHeThanNhan = quanHeThanNhan;
     }
 
-    public THANNHAN() {
-        ngaySinhThanNhan = new NGAY();
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public String getHoTenThanNhan() {
@@ -55,7 +66,8 @@ public class THANNHAN implements Serializable {
         this.quanHeThanNhan = quanHeThanNhan;
     }
 
-    public void nhapNhanThan() {
+    public void nhap(String maNV) {
+        this.maNV = maNV;
         System.out.print("Ho ten than nhan -> ");
         this.hoTenThanNhan = check.kiemTraHoTen();
         System.out.print("Gioi tinh than nhan -> ");
@@ -66,7 +78,7 @@ public class THANNHAN implements Serializable {
         this.quanHeThanNhan = check.kiemTraChuoiKyTu();
     }
 
-    public void xuatNhanThan() {
+    public void xuat() {
         System.out.println("Ho ten than nhan: " + this.hoTenThanNhan);
         System.out.println("Gioi tinh than nhan: " + this.gioiTinh);
         System.out.println("Ngay sinh than nhan: " + this.ngaySinhThanNhan);
@@ -75,6 +87,6 @@ public class THANNHAN implements Serializable {
 
     @Override
     public String toString() {
-        return "THANNHAN [hoTenThanNhan=" + hoTenThanNhan + ", gioiTinh=" + gioiTinh + ", ngaySinhThanNhan=" + ngaySinhThanNhan + ", quanHeThanNhan=" + quanHeThanNhan + "]";
+        return maNV + ", hoTenThanNhan: " + hoTenThanNhan + ", gioiTinh: " + gioiTinh + ", ngaySinhThanNhan: " + ngaySinhThanNhan + ", quanHeThanNhan: " + quanHeThanNhan;
     }
 }

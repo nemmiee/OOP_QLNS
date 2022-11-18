@@ -4,8 +4,6 @@
  */
 package quanlynhansu;
 
-import java.util.ArrayList;
-
 public class nhanvienManager {
 
     private NHANVIEN[] nvList;
@@ -30,6 +28,12 @@ public class nhanvienManager {
         return nvList;
     }
 
+    /**
+     *
+     * @param list
+     * @param nv
+     * @return Tra ve mang moi sau khi them 1 doi tuong nhan vien
+     */
     public NHANVIEN[] add(NHANVIEN[] list, NHANVIEN nv) {
         if (isEmpty(list)) {
             NHANVIEN[] newList = new NHANVIEN[1];
@@ -45,6 +49,34 @@ public class nhanvienManager {
         }
     }
 
+    public NHANVIEN[] add(NHANVIEN[] head, NHANVIEN[] tail) {
+        if (isEmpty(head) && isEmpty(tail)) {
+            return null;
+        } else if (isEmpty(head) && !isEmpty(tail)) {
+            return tail;
+        } else if (!isEmpty(head) && isEmpty(tail)) {
+            return head;
+        } else {
+            NHANVIEN[] list = new NHANVIEN[head.length + tail.length];
+            int count = 0;
+            for (int i = 0; i < head.length; ++i) {
+                list[count] = head[i];
+                ++count;
+            }
+            for (int i = 0; i < tail.length; ++i) {
+                list[count] = tail[i];
+                ++count;
+            }
+            return list;
+        }
+    }
+
+    /**
+     *
+     * @param list
+     * @param index
+     * @return Tra ve mang moi sau khi xoa nhan vien tai vi tri index
+     */
     public NHANVIEN[] remove(NHANVIEN[] list, int index) {
         if (index >= 0 && index < list.length) {
             for (int i = index; i < list.length - 1; ++i) {
@@ -60,11 +92,35 @@ public class nhanvienManager {
         }
     }
 
-    public boolean isEmpty(NHANVIEN[] list) {
+    /**
+     *
+     * @param list
+     * @return Kiem tra mang truyen vao co rong hay khong
+     */
+    public static boolean isEmpty(NHANVIEN[] list) {
         if (list == null) {
             return true;
         }
         return (list.length == 0);
+    }
+
+    /**
+     *
+     * @param list
+     * @param maNV
+     * @return Tra ve vi tri cua doi tuong co chung maNV trong danh sach neu
+     * khong co doi tuong se tra ve -1
+     */
+    public static int isInList(NHANVIEN[] list, String maNV) {
+        if (isEmpty(list)) {
+            return -1;
+        }
+        for (int i = 0; i < list.length; ++i) {
+            if (list[i].maNhanVien.equals(maNV)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void add() {
@@ -88,7 +144,7 @@ public class nhanvienManager {
                     NHANVIEN nv = new NHANVIEN();
                     nv.nhapNhanVien(maNV);
                     nvList = add(nvList, nv);
-                    fnv.write(nvList);
+                    fnv.write(sortByMaNV());
                     break;
                 } else {
                     System.out.print("Da ton tai ma nhan vien\nMoi nhap lai ma nhan vien: ");
@@ -106,10 +162,11 @@ public class nhanvienManager {
             if (nvList[i].getMaNhanVien().equals(maNV)) {
                 isExist = true;
                 boolean flag = true;
+                System.out.println("\n======== " + nvList[i].getHoTen());
                 Main.editNhanVienMenu();
                 while (flag) {
                     System.out.print("  Moi nhap lua chon: ");
-                    int choice = (int) check.kiemTraSoNguyenDuong();
+                    int choice = (int) CHECK.kiemTraSoNguyenDuong();
                     switch (choice) {
                         case 0: {
                             System.out.println("  Ban da thoat sua thong tin nhan vien!\n");
@@ -158,13 +215,6 @@ public class nhanvienManager {
                             nvList[i].setChucVu(check.kiemTraChuoiKyTu());
                         }
                         break;
-                        case 7: {
-                            System.out.println("\tThan nhan: ");
-                            THANNHAN thanNhan = new THANNHAN();
-                            thanNhan.nhapNhanThan();
-                            nvList[i].setThanNhan(thanNhan);
-                        }
-                        break;
                         default: {
                             System.out.println("\tBan da nhap sai lua chon! Hay nhap dung");
                         }
@@ -176,7 +226,7 @@ public class nhanvienManager {
         if (!isExist) {
             System.out.println("  Ma nhan vien \"" + maNV + "\" khong ton tai!!!");
         } else {
-            fnv.write(nvList);
+            fnv.write(sortByMaNV());
         }
     }
 
@@ -195,7 +245,69 @@ public class nhanvienManager {
         if (!isExist) {
             System.out.println("  Ma nhan vien \"" + maNV + "\" khong ton tai!!!");
         } else {
-            fnv.write(nvList);
+            fnv.write(sortByMaNV());
+        }
+    }
+
+    public static String getFirstLetterOfMaNV(String maNV) {
+        return maNV.substring(0, 1);
+    }
+
+    public static int getNumberOfMaNV(String maNV) {
+        return Integer.parseInt(maNV.substring(1));
+    }
+
+    public NHANVIEN[] sort(NHANVIEN[] array) {
+        if (isEmpty(array)) {
+            return null;
+        } else {
+            int min;
+            for (int i = 0; i < array.length - 1; ++i) {
+                min = i;
+                for (int j = i + 1; j < array.length; ++j) {
+                    if (getNumberOfMaNV(array[min].getMaNhanVien()) > getNumberOfMaNV(array[j].getMaNhanVien())) {
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    NHANVIEN temp = array[i];
+                    array[i] = array[min];
+                    array[min] = temp;
+                }
+            }
+            return array;
+        }
+    }
+
+    public NHANVIEN[] sortByMaNV() {
+        if (isEmpty(this.nvList)) {
+            return null;
+        } else {
+            NHANVIEN[] arrC = null;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nhanvienManager.getFirstLetterOfMaNV(nvList[i].getMaNhanVien()).equals("C")) {
+                    arrC = add(arrC, nvList[i]);
+                }
+            }
+            arrC = sort(arrC);
+            NHANVIEN[] arrP = null;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nhanvienManager.getFirstLetterOfMaNV(nvList[i].getMaNhanVien()).equals("P")) {
+                    arrP = add(arrP, nvList[i]);
+                }
+            }
+            arrP = sort(arrP);
+            NHANVIEN[] arrT = null;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nhanvienManager.getFirstLetterOfMaNV(nvList[i].getMaNhanVien()).equals("T")) {
+                    arrT = add(arrT, nvList[i]);
+                }
+            }
+            arrT = sort(arrT);
+
+            arrC = add(arrC, arrP);
+            arrC = add(arrC, arrT);
+            return arrC;
         }
     }
 
@@ -227,4 +339,5 @@ public class nhanvienManager {
             System.out.println("Khong co nhan vien trong danh sach.");
         }
     }
+
 }

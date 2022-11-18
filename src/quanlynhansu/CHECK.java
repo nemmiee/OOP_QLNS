@@ -9,7 +9,6 @@ import java.io.Serializable;
 public class CHECK implements Serializable {
     private static final long serialVersionUID = 1L;
 
-
     public String kiemTraMaNhanVien() {
         String input;
         while (true) {
@@ -120,8 +119,8 @@ public class CHECK implements Serializable {
         }
     }
 
-    public boolean kiemTraDiaChi(String soNha, String duong, String phuong, String quan, String thanhPho) {
-        return duong.matches("[a-zA-Z0-9\\s/]+") && phuong.matches("[a-zA-Z0-9\\s/]+") && quan.matches("[a-zA-Z0-9\\s/]+") && thanhPho.matches("[a-zA-Z\\s]+");
+    public boolean kiemTraDiaChi(String quan, String thanhPho) {
+        return quan.matches("[a-zA-Z0-9\\s/]+") && thanhPho.matches("[a-zA-Z\\s]+");
     }
 
     public boolean kiemTraStartEndDay(NGAY start, NGAY end) {
@@ -195,7 +194,7 @@ public class CHECK implements Serializable {
     /**
      * @return Kiểm tra số nguyên dương
      */
-    public long kiemTraSoNguyenDuong() {
+    public static long kiemTraSoNguyenDuong() {
         long input;
         while (true) {
             try {

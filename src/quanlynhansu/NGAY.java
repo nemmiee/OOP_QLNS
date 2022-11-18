@@ -66,7 +66,7 @@ public class NGAY implements Serializable {
                 thang = month;
                 nam = year;
                 break;
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Sai dinh dang! Moi nhap lai:");
             }
         }

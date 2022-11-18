@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class NHANVIEN implements Serializable {
     private static final long serialVersionUID = 1L;
 
-
     protected String maNhanVien;
     protected String hoTen;
     protected NGAY ngaySinh;
@@ -14,7 +13,6 @@ public class NHANVIEN implements Serializable {
     protected DIACHI diaChi;
     protected String chucVu;
     protected HOPDONG hopDong;
-    protected THANNHAN thanNhan;
     
     private static int soLuongNhanVien = 0;
     
@@ -24,11 +22,10 @@ public class NHANVIEN implements Serializable {
         hopDong = new HOPDONG();
         ngaySinh = new NGAY();
         diaChi = new DIACHI();
-        thanNhan = new THANNHAN();
         ++soLuongNhanVien;
     }
 
-    public NHANVIEN(String maNhanVien, String hoTen, NGAY ngaySinh, String gioiTinh, String soDienThoai, DIACHI diaChi, String chucVu, HOPDONG hopDong, THANNHAN thanNhan) {
+    public NHANVIEN(String maNhanVien, String hoTen, NGAY ngaySinh, String gioiTinh, String soDienThoai, DIACHI diaChi, String chucVu, HOPDONG hopDong) {
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
@@ -37,7 +34,6 @@ public class NHANVIEN implements Serializable {
         this.diaChi = diaChi;
         this.chucVu = chucVu;
         this.hopDong = hopDong;
-        this.thanNhan = thanNhan;
         ++soLuongNhanVien;
     }
 
@@ -104,14 +100,6 @@ public class NHANVIEN implements Serializable {
     public void setHopDong(HOPDONG hopDong) {
         this.hopDong = hopDong;
     }
-
-    public THANNHAN getThanNhan() {
-        return thanNhan;
-    }
-
-    public void setThanNhan(THANNHAN thanNhan) {
-        this.thanNhan = thanNhan;
-    }
     
     public static int getSoLuongNhanVien() {
         return soLuongNhanVien;
@@ -134,8 +122,6 @@ public class NHANVIEN implements Serializable {
         this.chucVu = check.kiemTraChuoiKyTu();
         System.out.println("Hop dong: ");
         this.hopDong.nhapHopDong();
-        System.out.println("Than nhan: ");
-        this.thanNhan.nhapNhanThan();
     }
     
     public void nhapNhanVien(String maNV) {
@@ -154,8 +140,6 @@ public class NHANVIEN implements Serializable {
         this.chucVu = check.kiemTraChuoiKyTu();
         System.out.println("Hop dong: ");
         this.hopDong.nhapHopDong();
-        System.out.println("Than nhan: ");
-        this.thanNhan.nhapNhanThan();
     }
 
     public void xuatNhanVien() {
@@ -167,7 +151,6 @@ public class NHANVIEN implements Serializable {
         System.out.println("Dia chi: " + diaChi.toString());
         System.out.println("Chuc vu: " + this.chucVu);
         hopDong.xuatHopDong();
-        thanNhan.xuatNhanThan();
     }
 
 }

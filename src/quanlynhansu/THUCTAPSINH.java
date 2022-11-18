@@ -11,8 +11,8 @@ public class THUCTAPSINH extends NHANVIEN {
     public THUCTAPSINH() {
     }
 
-    public THUCTAPSINH(String maNhanVien, String hoTen, NGAY ngaySinh, String gioiTinh, String soDienThoai, DIACHI diaChi, String chucVu, HOPDONG hopDong, THANNHAN thanNhan, double phuCap, String email, String maPhongBan) {
-        super(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi, chucVu, hopDong, thanNhan);
+    public THUCTAPSINH(String maNhanVien, String hoTen, NGAY ngaySinh, String gioiTinh, String soDienThoai, DIACHI diaChi, String chucVu, HOPDONG hopDong, double phuCap, String email, String maPhongBan) {
+        super(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi, chucVu, hopDong);
         this.phuCap = phuCap;
         this.email = email;
         this.maPhongBan = maPhongBan;
@@ -21,7 +21,7 @@ public class THUCTAPSINH extends NHANVIEN {
     public void nhapThucTapSinh() {
         super.nhapNhanVien();
         System.out.print("Phu Cap -> ");
-        this.phuCap = check.kiemTraSoNguyenDuong();
+        this.phuCap = CHECK.kiemTraSoNguyenDuong();
         System.out.print("Email -> ");
         this.email = check.kiemTraEmail();
         System.out.print("Ma phong ban -> ");

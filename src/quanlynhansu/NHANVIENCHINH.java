@@ -15,8 +15,8 @@ public class NHANVIENCHINH extends NHANVIEN {
         ++soLuongNhanVienChinh;
     }
 
-    public NHANVIENCHINH(String maNhanVien, String hoTen, NGAY ngaySinh, String gioiTinh, String soDienThoai, DIACHI diaChi, String chucVu, HOPDONG hopDong, THANNHAN thanNhan, LUONG luong, String email, String maPhongBan, int soDuAnDaThucHien, String maDuAnDangLam) {
-        super(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi, chucVu, hopDong, thanNhan);
+    public NHANVIENCHINH(String maNhanVien, String hoTen, NGAY ngaySinh, String gioiTinh, String soDienThoai, DIACHI diaChi, String chucVu, HOPDONG hopDong, LUONG luong, String email, String maPhongBan, int soDuAnDaThucHien, String maDuAnDangLam) {
+        super(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi, chucVu, hopDong);
         this.luong = luong;
         this.email = email;
         this.maPhongBan = maPhongBan;
@@ -78,7 +78,7 @@ public class NHANVIENCHINH extends NHANVIEN {
         System.out.print("Ma phong ban (IT | KT | NS | DH) -> ");
         this.maPhongBan = check.kiemTraMaPhongBan();
         System.out.print("So du an da thuc hien -> ");
-        this.soDuAnDaThucHien = (int) check.kiemTraSoNguyenDuong();
+        this.soDuAnDaThucHien = (int) CHECK.kiemTraSoNguyenDuong();
         System.out.print("Ma du an dang lam -> ");
         this.maDuAnDangLam = Main.inHoaTatCaKyTu(Main.scan.nextLine());
     }

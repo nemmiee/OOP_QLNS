@@ -10,8 +10,8 @@ public class NHANVIENPHU extends NHANVIEN {
         luong = new LUONG();
     }
 
-    public NHANVIENPHU(String maNhanVien, String hoTen, NGAY ngaySinh, String gioiTinh, String soDienThoai, DIACHI diaChi, String chucVu, HOPDONG hopDong, THANNHAN thanNhan, LUONG luong) {
-        super(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi, chucVu, hopDong, thanNhan);
+    public NHANVIENPHU(String maNhanVien, String hoTen, NGAY ngaySinh, String gioiTinh, String soDienThoai, DIACHI diaChi, String chucVu, HOPDONG hopDong, LUONG luong) {
+        super(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi, chucVu, hopDong);
         this.luong = luong;
     }
 
