@@ -85,7 +85,7 @@ public class thannhanManager {
             }
         }
     }
-    
+
     public THANNHAN[] add(THANNHAN[] head, THANNHAN[] tail) {
         if (isEmpty(head) && isEmpty(tail)) {
             return null;
@@ -281,7 +281,7 @@ public class thannhanManager {
             return tnArr;
         }
     }
-    
+
     public THANNHAN[] sortByMaNV() {
         if (isEmpty(tnList)) {
             return null;
@@ -320,12 +320,51 @@ public class thannhanManager {
         } else {
             System.out.println("\n============== DANH SACH THAN NHAN ==============");
             System.out.println("---------------------------------------------------------------------------------------");
-            System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh" , "Quan he");
+            System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", "Ma nhan vien", "Ho va ten than nhan", "Gioi tinh", "Ngay sinh", "Quan he");
             System.out.println("------------------------------------------------------------------------------------------");
             for (int i = 0; i < tnList.length; ++i) {
                 System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", tnList[i].getMaNV(), tnList[i].getHoTenThanNhan(), tnList[i].getGioiTinh(), tnList[i].getNgaySinhThanNhan(), tnList[i].getQuanHeThanNhan());
             }
             System.out.println("------------------------------------------------------------------------------------------");
+        }
+    }
+
+    public void printPersonalThanNhan(NHANVIEN[] nvList) {
+        if (isEmpty(tnList)) {
+            System.out.println("Danh sach than nhan rong.");
+        } else {
+            if (nhanvienManager.isEmpty(nvList)) {
+                System.out.println("Danh sach nhan vien rong.");
+            } else {
+                System.out.print("Moi nhap ma nhan vien: ");
+                String maNV = check.kiemTraMaNhanVien();
+                if (nhanvienManager.isInList(nvList, maNV) != -1) {
+                    boolean isExist = false;
+                    int count = 0;
+                    for (int i = 0; i < tnList.length; ++i) {
+                        if (tnList[i].getMaNV().equals(maNV)) {
+                            isExist = true;
+                            ++count;
+                            if (count == 1) {
+                                System.out.println("\n| " + tnList[i].getMaNV() + " | " + nvList[nhanvienManager.isInList(nvList, maNV)].getHoTen()
+                                        + " | " + nvList[nhanvienManager.isInList(nvList, maNV)].getChucVu() + " |");
+                                System.out.println("---------------------------------------------------------------------------");
+                                System.out.printf("| %-30s | %-9s | %-13s | %-10s |\n", "Ho va ten than nhan", "Gioi tinh", "Ngay sinh", "Quan he");
+                                System.out.println("---------------------------------------------------------------------------");
+                            }
+                            System.out.printf("| %-30s | %-9s | %-13s | %-10s |\n", tnList[i].getHoTenThanNhan(), tnList[i].getGioiTinh(), tnList[i].getNgaySinhThanNhan(), tnList[i].getQuanHeThanNhan());
+                        }
+                    }
+                    if (isExist) {
+                        System.out.println("---------------------------------------------------------------------------");
+                    } else {
+                        System.out.println("Khong ton tai than nhan cua nhan vien.");
+                    }
+                }
+                else {
+                    System.out.println("Khong ton tai nhan vien.");
+                }
+            }
         }
     }
 }

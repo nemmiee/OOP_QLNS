@@ -101,8 +101,7 @@ public class CHAMCONG implements Serializable, NhapXuat {
                 System.out.println("Thang khong hop le.");
             }
         }
-        int dungGio, diTre, nghi;
-        float tong;
+        int dungGio, diTre, nghi, tong;
         while (true) {
             System.out.print("So ngay di dung gio: ");
             dungGio = (int) CHECK.kiemTraSoNguyenDuong();
@@ -110,18 +109,17 @@ public class CHAMCONG implements Serializable, NhapXuat {
             diTre = (int) CHECK.kiemTraSoNguyenDuong();
             System.out.print("So ngay nghi: ");
             nghi = (int) CHECK.kiemTraSoNguyenDuong();
-            tong = (float) (dungGio * 1 + diTre * 0.5 + nghi * 0);
-            if (tong <= check.lastDayOfMonth(thang, nam)) {
+            tong = dungGio + diTre + nghi;
+            if (tong == check.lastDayOfMonth(thang, nam)) {
                 break;
             } else {
-                System.out.println("Du lieu nhap vuot qua so ngay cua " + thang + "/" + nam);
+                System.out.println("Tong so ngay vua nhap " + tong + " khong khop voi so ngay cua " + thang + "/" + nam + " la " + check.lastDayOfMonth(thang, nam) + " ngay");
             }
         }
     }
 
     public void nhap(String maNV, int thang, int nam) {
-        int dungGio, diTre, nghi;
-        float tong;
+        int dungGio, diTre, nghi, tong;
         while (true) {
             System.out.print("So ngay di dung gio: ");
             dungGio = (int) CHECK.kiemTraSoNguyenDuong();
@@ -129,11 +127,11 @@ public class CHAMCONG implements Serializable, NhapXuat {
             diTre = (int) CHECK.kiemTraSoNguyenDuong();
             System.out.print("So ngay nghi: ");
             nghi = (int) CHECK.kiemTraSoNguyenDuong();
-            tong = (float) (dungGio * 1 + diTre * 0.5 + nghi * 0);
-            if (tong <= check.lastDayOfMonth(thang, nam)) {
+            tong = dungGio + diTre + nghi;
+            if (tong == check.lastDayOfMonth(thang, nam)) {
                 break;
             } else {
-                System.out.println("Du lieu nhap vuot qua so ngay cua " + thang + "/" + nam);
+                System.out.println("Tong so ngay vua nhap \"" + tong + "\" khong khop voi so ngay cua " + thang + "/" + nam + " la " + check.lastDayOfMonth(thang, nam) + " ngay.");
             }
         }
         this.maNV = maNV;

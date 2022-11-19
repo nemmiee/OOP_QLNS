@@ -14,17 +14,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class FileChamCong {
+public class FileLuong {
     
-    private static final String CHAMCONG_FILE_NAME = "D:/Study Space/HK1_2022_2023/OOP_QLNS/QUANLYNHANSU/chamcong.txt";
+    private static final String LUONG_FILE_NAME = "D:/Study Space/HK1_2022_2023/OOP_QLNS/QUANLYNHANSU/luong.txt";
     
-    public void write(CHAMCONG[] ccList) {
+    public void write(LUONG[] luongList) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream(new File(CHAMCONG_FILE_NAME));
+            fos = new FileOutputStream(new File(LUONG_FILE_NAME));
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(ccList);
+            oos.writeObject(luongList);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -37,14 +37,14 @@ public class FileChamCong {
         }
     }
     
-    public CHAMCONG[] read() {
-        CHAMCONG[] ccList = null;
+    public LUONG[] read() {
+        LUONG[] luongList = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
-            fis = new FileInputStream(new File(CHAMCONG_FILE_NAME));
+            fis = new FileInputStream(new File(LUONG_FILE_NAME));
             ois = new ObjectInputStream(fis);
-            ccList = (CHAMCONG[]) ois.readObject();
+            luongList = (LUONG[]) ois.readObject();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class FileChamCong {
             closeStream(fis);
             closeStream(ois);
         }
-        return ccList;
+        return luongList;
     }
     
     private void closeStream(InputStream inputStream) {

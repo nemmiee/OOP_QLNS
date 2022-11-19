@@ -61,11 +61,6 @@ public class HOPDONG implements Serializable {
 
     @Override
     public String toString() {
-        return "HOPDONG [ngayBatDauHopDong=" + ngayBatDauHopDong + ", ngayKetThucHopDong=" + ngayKetThucHopDong + "]";
+        return "ngayBatDauHopDong=" + ngayBatDauHopDong + ", ngayKetThucHopDong=" + ngayKetThucHopDong;
     }
-//	public static void main(String[] args) {
-//		HOPDONG a= new HOPDONG();
-//		a.nhapHopDong();
-//		a.xuatHopDong();
-//	}
 }

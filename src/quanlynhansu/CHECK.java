@@ -243,4 +243,27 @@ public class CHECK implements Serializable {
             System.out.print("Moi nhap lua chon (Y | N ): ");
         }
     }
+    
+    public int compareDate(int month1, int year1, int month2, int year2) {
+        // return 1 la month1/year1 after month2/year2
+        // return 0 la month1/year1 = month2/year2
+        // return -1 la month1/year1 before month2/year2
+        if (year1 == year2) {
+            if (month1 > month2) {
+                return 1;
+            }
+            else if (month1 < month2) {
+                return -1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else if (year1 > year2) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
 }

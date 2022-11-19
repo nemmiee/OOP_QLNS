@@ -15,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class FileThanNhan {
+    
     private static final String THANNHAN_FILE_NAME = "D:/Study Space/HK1_2022_2023/OOP_QLNS/QUANLYNHANSU/thannhan.txt";
     
     public void write(THANNHAN[] tnList) {

@@ -73,7 +73,7 @@ public class NHANVIENCHINH extends NHANVIEN {
     public void nhap() {
         super.nhap();
         System.out.println("Luong:");
-        luong.nhapLuong();
+        luong.nhap();
         System.out.print("Email -> ");
         this.email = check.kiemTraEmail();
         System.out.print("Ma phong ban (IT | KT | NS | DH) -> ");

@@ -31,7 +31,7 @@ public class NHANVIENPHU extends NHANVIEN {
     public void nhap() {
         super.nhap();
         System.out.println("Luong:");
-        this.luong.nhapLuong();
+        this.luong.nhap();
     }
 
     public void bangNhanVienPhu() {
