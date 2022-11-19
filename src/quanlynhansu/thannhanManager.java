@@ -4,8 +4,6 @@
  */
 package quanlynhansu;
 
-import static quanlynhansu.nhanvienManager.isEmpty;
-
 public class thannhanManager {
 
     private THANNHAN[] tnList = null;
@@ -320,11 +318,14 @@ public class thannhanManager {
         if (isEmpty(tnList)) {
             System.out.println("Danh sach than nhan rong.");
         } else {
-            System.out.println("\n----------------------------------------------- Danh sach than nhan -----------------------------------------------\n");
+            System.out.println("\n============== DANH SACH THAN NHAN ==============");
+            System.out.println("---------------------------------------------------------------------------------------");
+            System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh" , "Quan he");
+            System.out.println("------------------------------------------------------------------------------------------");
             for (int i = 0; i < tnList.length; ++i) {
-                System.out.println(tnList[i].toString() + "\n-----\n");
+                System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", tnList[i].getMaNV(), tnList[i].getHoTenThanNhan(), tnList[i].getGioiTinh(), tnList[i].getNgaySinhThanNhan(), tnList[i].getQuanHeThanNhan());
             }
-            System.out.println("------------------------------------------- Ket thuc danh sach than nhan -------------------------------------------\n");
+            System.out.println("------------------------------------------------------------------------------------------");
         }
     }
 }

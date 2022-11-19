@@ -18,8 +18,9 @@ public class THUCTAPSINH extends NHANVIEN {
         this.maPhongBan = maPhongBan;
     }
 
-    public void nhapThucTapSinh() {
-        super.nhapNhanVien();
+    @Override
+    public void nhap() {
+        super.nhap();
         System.out.print("Phu Cap -> ");
         this.phuCap = CHECK.kiemTraSoNguyenDuong();
         System.out.print("Email -> ");
@@ -34,7 +35,8 @@ public class THUCTAPSINH extends NHANVIEN {
         System.out.println("+----------+--------------------+---------------+----------+---------------+-----------------------------------+--------------------------------------------------+---------------+---------------+--------------------+");
     }
 
-    public void xuatThucTapSinh() {
+    @Override
+    public void xuat() {
         System.out.printf("|%-10s|%-20s|%-15s|%-10s|%-15s|%-35s|%-50s|%-15s|%-15s|%-20s|\n", this.maNhanVien, this.hoTen, this.ngaySinh, this.gioiTinh, this.soDienThoai, this.email, this.diaChi, this.chucVu, this.phuCap, this.maPhongBan);
 
     }

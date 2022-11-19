@@ -128,7 +128,7 @@ public class nhanvienManager {
         String maNV = check.kiemTraMaNhanVien();
         if (isEmpty(nvList)) {
             NHANVIEN nv = new NHANVIEN();
-            nv.nhapNhanVien(maNV);
+            nv.nhap(maNV);
             nvList = add(nvList, nv);
             fnv.write(nvList);
         } else {
@@ -142,7 +142,7 @@ public class nhanvienManager {
                 }
                 if (isExist == false) {
                     NHANVIEN nv = new NHANVIEN();
-                    nv.nhapNhanVien(maNV);
+                    nv.nhap(maNV);
                     nvList = add(nvList, nv);
                     fnv.write(sortByMaNV());
                     break;
@@ -324,12 +324,14 @@ public class nhanvienManager {
         if (isEmpty(nvList)) {
             System.out.println("Danh sach rong.");
         } else {
-            System.out.println("+-+-+-+-+-+-+-+-+-+ Danh sach nhan vien +-+-+-+-+-+-+-+-+-+\n");
+            System.out.println("\n============== DANH SACH NHAN VIEN ==============");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s | %-21s | %-21s |\n", "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh" , "So dien thoai", "Dia chi", "Chuc vu", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
             for (int i = 0; i < nvList.length; ++i) {
-                nvList[i].xuatNhanVien();
-                System.out.println("-----\n");
+                System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s | %-21s | %-21s  |\n", nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh, nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu, nvList[i].getHopDong().getNgayBatDauHopDong().toString(), nvList[i].getHopDong().getNgayKetThucHopDong().toString());                
             }
-            System.out.println("+-+-+-+-+-+-+-+ Ket thuc danh sach nhan vien +-+-+-+-+-+-+-+\n");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         }
     }
 
@@ -341,7 +343,7 @@ public class nhanvienManager {
             String maNV = check.kiemTraMaNhanVien();
             for (NHANVIEN i : nvList) {
                 if (i.getMaNhanVien().equals(maNV)) {
-                    i.xuatNhanVien();
+                    i.xuat();
                     return;
                 }
             }

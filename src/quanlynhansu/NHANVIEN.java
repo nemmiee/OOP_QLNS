@@ -2,7 +2,7 @@ package quanlynhansu;
 
 import java.io.Serializable;
 
-public class NHANVIEN implements Serializable {
+public class NHANVIEN implements Serializable, NhapXuat {
     private static final long serialVersionUID = 1L;
 
     protected String maNhanVien;
@@ -105,7 +105,8 @@ public class NHANVIEN implements Serializable {
         return soLuongNhanVien;
     }
 
-    public void nhapNhanVien() {
+    @Override
+    public void nhap() {
         System.out.print("Ma nhan vien -> ");
         this.maNhanVien = check.kiemTraMaNhanVien();
         System.out.print("Ho ten nhan vien -> ");
@@ -124,7 +125,7 @@ public class NHANVIEN implements Serializable {
         this.hopDong.nhapHopDong();
     }
     
-    public void nhapNhanVien(String maNV) {
+    public void nhap(String maNV) {
         this.maNhanVien = maNV;
         System.out.print("Ho ten nhan vien -> ");
         this.hoTen = check.kiemTraHoTen();
@@ -142,7 +143,8 @@ public class NHANVIEN implements Serializable {
         this.hopDong.nhapHopDong();
     }
 
-    public void xuatNhanVien() {
+    @Override
+    public void xuat() {
         System.out.println("Ma nhan vien: " + this.maNhanVien);
         System.out.println("Ho ten: " + this.hoTen);
         System.out.println("Ngay sinh: " + ngaySinh);

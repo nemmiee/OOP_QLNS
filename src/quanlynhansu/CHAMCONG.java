@@ -2,7 +2,7 @@ package quanlynhansu;
 
 import java.io.Serializable;
 
-public class CHAMCONG implements Serializable {
+public class CHAMCONG implements Serializable, NhapXuat {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class CHAMCONG implements Serializable {
     public void setNam(int nam) {
         this.nam = nam;
     }
-    
+
     public void setMaNV(String maNV) {
         this.maNV = maNV;
     }
@@ -85,6 +85,40 @@ public class CHAMCONG implements Serializable {
         return (float) (duNgayCong * 1 + nuaNgayCong * 0.5 + khongCong * 0);
     }
 
+    @Override
+    public void nhap() {
+        System.out.print("Nhap ma nhan vien: ");
+        this.maNV = check.kiemTraMaNhanVien();
+        while (true) {
+            System.out.print("Nhap thang: ");
+            this.thang = (int) CHECK.kiemTraSoNguyenDuong();
+            System.out.print("Nhap nam: ");
+            this.nam = (int) CHECK.kiemTraSoNguyenDuong();
+            if (thang > 0 && thang < 13) {
+                break;
+            }
+            else {
+                System.out.println("Thang khong hop le.");
+            }
+        }
+        int dungGio, diTre, nghi;
+        float tong;
+        while (true) {
+            System.out.print("So ngay di dung gio: ");
+            dungGio = (int) CHECK.kiemTraSoNguyenDuong();
+            System.out.print("So ngay di tre: ");
+            diTre = (int) CHECK.kiemTraSoNguyenDuong();
+            System.out.print("So ngay nghi: ");
+            nghi = (int) CHECK.kiemTraSoNguyenDuong();
+            tong = (float) (dungGio * 1 + diTre * 0.5 + nghi * 0);
+            if (tong <= check.lastDayOfMonth(thang, nam)) {
+                break;
+            } else {
+                System.out.println("Du lieu nhap vuot qua so ngay cua " + thang + "/" + nam);
+            }
+        }
+    }
+
     public void nhap(String maNV, int thang, int nam) {
         int dungGio, diTre, nghi;
         float tong;
@@ -98,8 +132,7 @@ public class CHAMCONG implements Serializable {
             tong = (float) (dungGio * 1 + diTre * 0.5 + nghi * 0);
             if (tong <= check.lastDayOfMonth(thang, nam)) {
                 break;
-            }
-            else {
+            } else {
                 System.out.println("Du lieu nhap vuot qua so ngay cua " + thang + "/" + nam);
             }
         }
@@ -109,6 +142,15 @@ public class CHAMCONG implements Serializable {
         this.duNgayCong = dungGio;
         this.nuaNgayCong = diTre;
         this.khongCong = nghi;
+    }
+    
+    @Override
+    public void xuat() {
+        System.out.println(thang + "/" + nam);
+        System.out.println("Ma nhan vien: " + maNV);
+        System.out.println("So ngay du cong: " + duNgayCong);
+        System.out.println("So ngay di tre: " + nuaNgayCong);
+        System.out.println("So ngay nghi: " + khongCong);
     }
 
     @Override

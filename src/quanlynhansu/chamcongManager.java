@@ -294,17 +294,16 @@ public class chamcongManager {
             System.out.println("Bang cham cong " + thang + "/" + nam + " rong");
         } else {
             if (isExist(thang, nam)) {
-                System.out.println("\n+-+-+-+-+-+-+-+-+ BANG CHAM CONG " + thang + "/" + nam + " +-+-+-+-+-+-+-+-+\n");
+                System.out.println("\n============== BANG CHAM CONG " + thang + "/" + nam + " ==============");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.printf("| %-12s | %-30s | %-20s | %-15s | %-17s | %-18s | %-17s |\n", "Ma nhan vien", "Ho ten nhan vien", "Chuc vu", "So ngay du cong", "So ngay nua cong", "So ngay khong cong", "Tong so ngay cong");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
                 for (int i = 0; i < ccList.length; ++i) {
                     if (ccList[i].getThang() == thang && ccList[i].getNam() == nam) {
-                        System.out.println(ccList[i].getMaNV() + " - " + nhanvienManager.getNhanVien(nvList, ccList[i].getMaNV()).getHoTen()
-                                + " - " + nhanvienManager.getNhanVien(nvList, ccList[i].getMaNV()).getChucVu() + " - So ngay di dung gio: " + ccList[i].getDuNgayCong()
-                                + " - So ngay di tre: " + ccList[i].getNuaNgayCong() + " - So ngay nghi: " + ccList[i].getKhongCong() + " - Tong ngay cong trong thang: "
-                                + ccList[i].tongNgayCong());
-                        System.out.println("------\n");
+                        System.out.printf("| %-12s | %-30s | %-20s | %15s | %17s | %18s | %17s |\n", ccList[i].getMaNV(), nhanvienManager.getNhanVien(nvList, ccList[i].getMaNV()).getHoTen(),  nhanvienManager.getNhanVien(nvList, ccList[i].getMaNV()).getChucVu(), ccList[i].getDuNgayCong(), ccList[i].getNuaNgayCong(), ccList[i].getKhongCong(), ccList[i].tongNgayCong());
                     }
                 }
-                System.out.println("+-+-+-+-+-+-+ KET THUC BANG CHAM CONG " + thang + "/" + nam + " +-+-+-+-+-+-+\n");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
             } else {
                 System.out.println("Khong ton tai bang cham cong " + thang + "/" + nam);
             }

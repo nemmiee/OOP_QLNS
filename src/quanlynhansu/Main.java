@@ -220,9 +220,11 @@ public class Main {
                             }
                         }
                     }
+                    break;
                 }
                 default: {
                     System.out.println("Nhap sai lua chon!");
+                    break;
                 }
             }
             if (exit) {
@@ -233,6 +235,7 @@ public class Main {
     }
 
     public static void menu() {
+        System.out.println();
         System.out.println("##==================== MENU CHINH ====================##");
         System.out.println("||  Nhap 1 de them nhan vien.                         ||");
         System.out.println("||  Nhap 2 de sua thong tin nhan vien.                ||");
@@ -247,6 +250,7 @@ public class Main {
     }
 
     public static void editNhanVienMenu() {
+        System.out.println();
         System.out.println("#---------- MENU SUA NHAN VIEN -----------#");
         System.out.println("|   Nhap 1 de sua ho va ten nhan vien.    |");
         System.out.println("|   Nhap 2 de sua ngay sinh.              |");
@@ -259,6 +263,7 @@ public class Main {
     }
 
     public static void thanNhanMenu() {
+        System.out.println();
         System.out.println("+-------------------- MENU THAN NHAN ---------------------+");
         System.out.println("|   Nhap 1 de them than nhan.                             |");
         System.out.println("|   Nhap 2 de chinh sua thong tin than nhan.              |");
@@ -269,6 +274,7 @@ public class Main {
     }
 
     public static void editThanNhanMenu() {
+        System.out.println();
         System.out.println("+------------ MENU CHINH SUA THAN NHAN ------------+");
         System.out.println("|   Nhap 1 de chinh sua ho ten than nhan.          |");
         System.out.println("|   Nhap 2 de doi gioi tinh than nhan.             |");
@@ -279,9 +285,10 @@ public class Main {
     }
 
     public static void chamCongMenu() {
+        System.out.println();
         System.out.println("#------------ MENU CHAM CONG -------------#");
         System.out.println("|   Nhap 1 de them bang cham cong.        |");
-        System.out.println("|   Nhap 2 de xoa cham cong.         |");
+        System.out.println("|   Nhap 2 de xoa cham cong.              |");
         System.out.println("|   Nhap 3 de chinh sua bang cham cong.   |");
         System.out.println("|   Nhap 4 de in bang cham cong.          |");
         System.out.println("|   Nhap 0 de thoat.                      |");

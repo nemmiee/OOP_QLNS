@@ -68,9 +68,10 @@ public class NHANVIENCHINH extends NHANVIEN {
         return soLuongNhanVienChinh;
     }
 
+    
     @Override
-    public void nhapNhanVien() {
-        super.nhapNhanVien();
+    public void nhap() {
+        super.nhap();
         System.out.println("Luong:");
         luong.nhapLuong();
         System.out.print("Email -> ");
@@ -89,7 +90,8 @@ public class NHANVIENCHINH extends NHANVIEN {
         System.out.println("+----------+--------------------+---------------+----------+---------------+-----------------------------------+--------------------------------------------------+---------------+---------------+--------------------+--------------------+");
     }
 
-    public void xuatNhanVienChinh() {
+    @Override
+    public void xuat() {
         System.out.printf("|%-10s|%-20s|%-15s|%-10s|%-15s|%-35s|%-50s|%-15s|%-15s|%-20s|%-20s|\n", this.maNhanVien, this.hoTen, this.ngaySinh, this.gioiTinh, this.soDienThoai, this.email, this.diaChi, this.chucVu, luong.getLuong(), this.soDuAnDaThucHien, this.maDuAnDangLam);
     }
 

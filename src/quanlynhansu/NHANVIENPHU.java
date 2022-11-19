@@ -27,8 +27,9 @@ public class NHANVIENPHU extends NHANVIEN {
         return soLuongNhanVienPhu;
     }
 
-    public void nhapNhanVienPhu() {
-        super.nhapNhanVien();
+    @Override
+    public void nhap() {
+        super.nhap();
         System.out.println("Luong:");
         this.luong.nhapLuong();
     }
@@ -39,7 +40,8 @@ public class NHANVIENPHU extends NHANVIEN {
         System.out.println("+----------+--------------------+---------------+----------+---------------+--------------------------------------------------+---------------+---------------+");
     }
 
-    public void xuatNhanVienPhu() {
+    @Override
+    public void xuat() {
         System.out.printf("|%-10s|%-20s|%-15s|%-10s|%-15s|%-50s|%-15s|%-15s|\n", this.maNhanVien, this.hoTen, this.ngaySinh, this.gioiTinh, this.soDienThoai, this.diaChi, this.chucVu, luong.getLuong());
 
     }
