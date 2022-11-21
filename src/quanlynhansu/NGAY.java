@@ -43,6 +43,15 @@ public class NGAY implements Serializable {
     public void setNam(int nam) {
         this.nam = nam;
     }
+    
+    public boolean compareDate(NGAY date) {
+        if (this.ngay == date.getNgay() && this.thang == date.getThang() && this.nam == date.getNam()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public void nhapNgay() {
         while (true) {
@@ -76,10 +85,4 @@ public class NGAY implements Serializable {
     public String toString() {
         return this.ngay + "/" + this.thang + "/" + this.nam;
     }
-
-//        public static void main(String[] agrs) {
-//		NGAY a = new NGAY();
-//		a.nhapNgay();
-//		System.out.println(a);
-//	}
 }

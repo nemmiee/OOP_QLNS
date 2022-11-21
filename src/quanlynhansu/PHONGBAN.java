@@ -1,17 +1,26 @@
 package quanlynhansu;
 
-public class PHONGBAN {
+import java.io.Serializable;
 
+public class PHONGBAN implements Serializable, NhapXuat {
+    private static final long serialVersionUID = 1L;
+    
     private String maTruongPhong;
-    private String maPhongBan;
-    private String tenPhongBan;
-    private int soLuongNhanVien;
+    private String maPhong;
+    private String tenPhong;
+    
+    CHECK check = new CHECK();
     
     public PHONGBAN() {
         maTruongPhong = "";
-        maPhongBan = "";
-        tenPhongBan = "";
-        soLuongNhanVien = 0;
+        maPhong = "";
+        tenPhong = "";
+    }
+    
+    public PHONGBAN(String maTruongPhong, String maPhong, String tenPhong) {
+        this.maTruongPhong = maTruongPhong;
+        this.maPhong = maPhong;
+        this.tenPhong = tenPhong;
     }
 
     public String getMaTruongPhong() {
@@ -22,49 +31,44 @@ public class PHONGBAN {
         this.maTruongPhong = maTruongPhong;
     }
 
-    public String getMaPhongBan() {
-        return maPhongBan;
+    public String getMaPhong() {
+        return maPhong;
     }
 
-    public void setMaPhongBan(String maPhongBan) {
-        this.maPhongBan = maPhongBan;
+    public void setMaPhong(String maPhong) {
+        this.maPhong = maPhong;
     }
 
-    public int getSoLuongNhanVien() {
-        return soLuongNhanVien;
+    public String getTenPhong() {
+        return tenPhong;
+    }
+
+    public void setTenPhong(String tenPhong) {
+        this.tenPhong = tenPhong;
+    }
+
+    @Override
+    public void nhap() {
+        System.out.print("Ma truong phong: ");
+        this.maTruongPhong = Main.scan.nextLine();
+        System.out.print("Ma phong ban: ");
+        this.maPhong = Main.scan.nextLine();
+        System.out.print("Ten phong ban: ");
+        this.tenPhong = Main.scan.nextLine();
     }
     
-    public String getTenPhongBan() {
-        return tenPhongBan;
-    }
-
-    public void setTenPhongBan(String tenPhongBan) {
-        this.tenPhongBan = tenPhongBan;
-    }
-
-    public PHONGBAN(String maTruongPhong, String maPhongBan, String tenPhongBan, int soLuongNhanVien) {
+    public void nhap(String maPhong, String maTruongPhong) {
+        this.maPhong = maPhong;
         this.maTruongPhong = maTruongPhong;
-        this.maPhongBan = maPhongBan;
-        this.tenPhongBan = tenPhongBan;
-        this.soLuongNhanVien = soLuongNhanVien;
+        System.out.print("Ten phong ban: ");
+        this.tenPhong = check.kiemTraChuoiKyTu();
     }
 
-    public void nhapPhongBan() {
-        System.out.print("Ma truong phong -> ");
-        this.maTruongPhong = Main.scan.nextLine();
-        System.out.print("Ma phong ban -> ");
-        this.maPhongBan = Main.scan.nextLine();
-        System.out.print("So luong nhan vien -> ");
-        this.soLuongNhanVien = Integer.parseInt(Main.scan.nextLine());
-        System.out.print("Ten Phong Ban -> ");
-        this.tenPhongBan = Main.scan.nextLine();
-    }
-
-    public void xuatPhongBan() {
+    @Override
+    public void xuat() {
         System.out.println("Ma truong phong: " + this.maTruongPhong);
-        System.out.println("Ma phong ban: " + this.maPhongBan);
-        System.out.println("So luong nhan vien: " + this.soLuongNhanVien);
-        System.out.println("Ten phong ban: " + this.tenPhongBan);
+        System.out.println("Ma phong ban: " + this.maPhong);
+        System.out.println("Ten phong ban: " + this.tenPhong);
     }
 
 }

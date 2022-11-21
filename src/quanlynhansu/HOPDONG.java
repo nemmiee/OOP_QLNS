@@ -2,7 +2,7 @@ package quanlynhansu;
 
 import java.io.Serializable;
 
-public class HOPDONG implements Serializable {
+public class HOPDONG implements Serializable, NhapXuat {
     private static final long serialVersionUID = 1L;
 
     private NGAY ngayBatDauHopDong;
@@ -36,7 +36,8 @@ public class HOPDONG implements Serializable {
         this.ngayKetThucHopDong = ngayKetThucHopDong;
     }
 
-    public void nhapHopDong() {
+    @Override
+    public void nhap() {
         System.out.println("Ngay bat dau hop dong: ");
         NGAY start = new NGAY();
         start.nhapNgay();
@@ -44,7 +45,7 @@ public class HOPDONG implements Serializable {
         NGAY end = new NGAY();
         end.nhapNgay();
         while (!check.kiemTraStartEndDay(start, end)) {
-            System.out.println("Khong hop le! Moi nhap lai:");
+            System.out.println("Ngay ket thuc phai sau ngay bat dau! Moi nhap lai:");
             System.out.println("Ngay bat dau hop dong: ");
             start.nhapNgay();
             System.out.println("Ngay ket thuc hop dong: ");
@@ -54,7 +55,8 @@ public class HOPDONG implements Serializable {
         ngayKetThucHopDong = end;
     }
 
-    public void xuatHopDong() {
+    @Override
+    public void xuat() {
         System.out.println("Ngay bat dau hop dong: " + ngayBatDauHopDong);
         System.out.println("Ngay ket thuc hop dong: " + ngayKetThucHopDong);
     }

@@ -221,50 +221,54 @@ public class luongManager {
     }
 
     public void delete() {
-        System.out.println("Nhap 1 de xoa luong tung ca nhan.");
-        System.out.println("Nhap 2 de xoa 1 bang luong.");
-        System.out.print("Moi lua chon: ");
-        int choice = (int) CHECK.kiemTraSoNguyenDuong();
-        switch (choice) {
-            case 1: {
-                String choice1 = "Y", choice2 = "Y";
-                while (choice1.equals("Y")) {
-                    choice2 = "Y";
-                    System.out.print("Moi nhap nam: ");
+        if (isEmpty(luongList)) {
+            System.out.println("Khong ton tai bang cham luong nao.");
+        } else {
+            System.out.println("Nhap 1 de xoa luong tung ca nhan.");
+            System.out.println("Nhap 2 de xoa 1 bang luong.");
+            System.out.print("Moi lua chon: ");
+            int choice = (int) CHECK.kiemTraSoNguyenDuong();
+            switch (choice) {
+                case 1: {
+                    String choice1 = "Y", choice2 = "Y";
+                    while (choice1.equals("Y")) {
+                        choice2 = "Y";
+                        System.out.print("Moi nhap nam: ");
+                        int nam = (int) CHECK.kiemTraSoNguyenDuong();
+                        System.out.print("Moi nhap thang: ");
+                        int thang = (int) CHECK.kiemTraSoNguyenDuong();
+                        if (thang > 0 && thang < 13) {
+                            while (choice2.equals("Y")) {
+                                delete(thang, nam);
+                                System.out.print("Ban co muon tiep tuc xoa thong tin cua bang luong " + thang + "/" + nam + " ( Y | N ): ");
+                                choice2 = CHECK.yesNoChoice();
+                            }
+                            System.out.print("Ban co muon tiep tuc xoa thong tin ( Y | N ): ");
+                            choice1 = CHECK.yesNoChoice();
+                        } else {
+                            System.out.print("Thang khong ton tai.");
+                            System.out.print("Ban co muon tiep tuc xoa thong tin ( Y | N ): ");
+                            choice1 = CHECK.yesNoChoice();
+                        }
+                    }
+                    break;
+                }
+                case 2: {
+                    System.out.print("Nhap nam cua bang luong can xoa: ");
                     int nam = (int) CHECK.kiemTraSoNguyenDuong();
-                    System.out.print("Moi nhap thang: ");
+                    System.out.print("Nhap thang cua bang luong can xoa: ");
                     int thang = (int) CHECK.kiemTraSoNguyenDuong();
                     if (thang > 0 && thang < 13) {
-                        while (choice2.equals("Y")) {
-                            delete(thang, nam);
-                            System.out.print("Ban co muon tiep tuc xoa thong tin cua bang luong " + thang + "/" + nam + " ( Y | N ): ");
-                            choice2 = CHECK.yesNoChoice();
-                        }
-                        System.out.print("Ban co muon tiep tuc xoa thong tin ( Y | N ): ");
-                        choice1 = CHECK.yesNoChoice();
+                        deleteBangLuongTheoThang(thang, nam);
                     } else {
-                        System.out.print("Thang khong ton tai.");
-                        System.out.print("Ban co muon tiep tuc xoa thong tin ( Y | N ): ");
-                        choice1 = CHECK.yesNoChoice();
+                        System.out.println("Thang khong ton tai.");
                     }
+                    break;
                 }
-                break;
-            }
-            case 2: {
-                System.out.print("Nhap nam cua bang luong can xoa: ");
-                int nam = (int) CHECK.kiemTraSoNguyenDuong();
-                System.out.print("Nhap thang cua bang luong can xoa: ");
-                int thang = (int) CHECK.kiemTraSoNguyenDuong();
-                if (thang > 0 && thang < 13) {
-                    deleteBangLuongTheoThang(thang, nam);
-                } else {
-                    System.out.println("Thang khong ton tai.");
+                default: {
+                    System.out.println("Nhap sai lua chon.");
+                    break;
                 }
-                break;
-            }
-            default: {
-                System.out.println("Nhap sai lua chon.");
-                break;
             }
         }
     }
@@ -344,11 +348,22 @@ public class luongManager {
             return arrC;
         }
     }
+    
+    public LUONG[] checkFirst(CHAMCONG[] ccList) {
+        for (int i = 0; i < luongList.length; ++i) {
+            if (chamcongManager.getChamCong(ccList, luongList[i].getMaNV(), luongList[i].getThang(), luongList[i].getNam()) == null) {
+                luongList = remove(luongList, i);
+            }
+        }
+        return luongList;
+    }
 
     public void printList(NHANVIEN[] nvList, CHAMCONG[] ccList, int thang, int nam) {
         if (isEmpty(luongList)) {
             System.out.println("Khong ton tai bang luong " + thang + "/" + nam);
         } else {
+            luongList = checkFirst(ccList);
+            fl.write(sortByMaNV());
             if (isExistInList(thang, nam) == true) {
                 luongList = sortByMaNV();
                 System.out.println("\n============== BANG LUONG " + thang + "/" + nam + " ==============");
@@ -361,7 +376,7 @@ public class luongManager {
                         System.out.printf("| %-12s | %-30s | %-20s | %12s | %11s | %17s | %26s |\n",
                                 luongList[i].getMaNV(), nhanvienManager.getNhanVien(nvList, luongList[i].getMaNV()).getHoTen(),
                                 nhanvienManager.getNhanVien(nvList, luongList[i].getMaNV()).getChucVu(), luongList[i].getLuongCoBan(),
-                                luongList[i].getHeSoLuong(), chamcongManager.getNhanVien(ccList, luongList[i].getMaNV(), thang, nam).tongNgayCong(),
+                                luongList[i].getHeSoLuong(), chamcongManager.getChamCong(ccList, luongList[i].getMaNV(), thang, nam).tongNgayCong(),
                                 luongList[i].getLuong());
                     }
                 }
@@ -373,37 +388,45 @@ public class luongManager {
     }
 
     public void printPersonal(NHANVIEN[] nvList, CHAMCONG[] ccList) {
-        System.out.print("Moi nhap ma nhan vien: ");
-        String maNV = check.kiemTraMaNhanVien();
-        if (nhanvienManager.isInList(nvList, maNV) != -1 && chamcongManager.isInList(ccList, maNV) != -1) {
-            LUONG[] list = null;
-            list = add(list, luongList);
-            list = sortByDate(list);
-            int count = 0;
-            for (int i = 0; i < list.length; ++i) {
-                if (list[i].getMaNV().equals(maNV)) {
-                    ++count;
-                    if (count == 1) {
-                        System.out.println("\n| Ma nhan vien: " + list[i].getMaNV() + " | Ho va ten: "
-                                + nvList[nhanvienManager.isInList(nvList, maNV)].hoTen + " | Chuc vu: "
-                                + nvList[nhanvienManager.isInList(nvList, maNV)].getChucVu() + " |");
-                        System.out.println("-------------------------------------------------------------------------------------------");
-                        System.out.printf("| %-9s | %-12s | %-10s | %-17s | %-26s |\n", "Thang/Nam", "Luong co ban", "He so luong",
-                                "Tong so ngay cong", "Luong thang (Don vi: dong)");
-                        System.out.println("-------------------------------------------------------------------------------------------");
-                    }
-                    System.out.printf("| %2d/%-6d | %12s | %10s | %17s  | %26s |\n", list[i].getThang(), list[i].getNam(),
-                            list[i].getLuongCoBan(), list[i].getHeSoLuong(), 
-                            chamcongManager.getNhanVien(ccList, list[i].getMaNV(), list[i].getThang(), list[i].getNam()).tongNgayCong(), list[i].getLuong());
-                }
-            }
-            if (count != 0) {
-                System.out.println("-------------------------------------------------------------------------------------------");
-            } else {
-                System.out.println("Khong co nhan vien trong bang luong");
-            }
+        if (isEmpty(luongList)) {
+            System.out.println("Khong ton tai bang cham luong nao.");
         } else {
-            System.out.println("Ma nhan vien khong ton tai.");
+            // Kiểm tra lại bảng lương và bảng chấm công có khớp dữ liệu với nhau không
+            // Ví dụ khi ta xóa dữ liệu bên bảng chấm công thì bảng lương cũng sẽ tự xóa dữ liệu
+            luongList = checkFirst(ccList);
+            fl.write(sortByMaNV());
+            System.out.print("Moi nhap ma nhan vien: ");
+            String maNV = check.kiemTraMaNhanVien();
+            if (nhanvienManager.isInList(nvList, maNV) != -1 && chamcongManager.isInList(ccList, maNV) != -1) {
+                LUONG[] list = null;
+                list = add(list, luongList);
+                list = sortByDate(list);
+                int count = 0;
+                for (int i = 0; i < list.length; ++i) {
+                    if (list[i].getMaNV().equals(maNV)) {
+                        ++count;
+                        if (count == 1) {
+                            System.out.println("\n| Ma nhan vien: " + list[i].getMaNV() + " | Ho va ten: "
+                                    + nvList[nhanvienManager.isInList(nvList, maNV)].hoTen + " | Chuc vu: "
+                                    + nvList[nhanvienManager.isInList(nvList, maNV)].getChucVu() + " |");
+                            System.out.println("-------------------------------------------------------------------------------------------");
+                            System.out.printf("| %-9s | %-12s | %-10s | %-17s | %-26s |\n", "Thang/Nam", "Luong co ban", "He so luong",
+                                    "Tong so ngay cong", "Luong thang (Don vi: dong)");
+                            System.out.println("-------------------------------------------------------------------------------------------");
+                        }
+                        System.out.printf("| %2d/%-6d | %12s | %10s | %17s  | %26s |\n", list[i].getThang(), list[i].getNam(),
+                                list[i].getLuongCoBan(), list[i].getHeSoLuong(),
+                                chamcongManager.getChamCong(ccList, list[i].getMaNV(), list[i].getThang(), list[i].getNam()).tongNgayCong(), list[i].getLuong());
+                    }
+                }
+                if (count != 0) {
+                    System.out.println("-------------------------------------------------------------------------------------------");
+                } else {
+                    System.out.println("Khong co nhan vien trong bang luong");
+                }
+            } else {
+                System.out.println("Ma nhan vien khong ton tai.");
+            }
         }
     }
 }

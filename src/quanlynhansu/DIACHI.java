@@ -35,15 +35,15 @@ public class DIACHI implements Serializable {
     }
 
     public void nhapDiaChi() {
-        System.out.print("\tTen quan / huyen / thi xa -> ");
+        System.out.print("Ten quan / huyen / thi xa: ");
         String quan = Main.scan.nextLine();
-        System.out.print("\tTen tinh / thanh pho -> ");
+        System.out.print("Ten tinh / thanh pho: ");
         String thanhPho = Main.scan.nextLine();
         while (!check.kiemTraDiaChi(quan, thanhPho)) {
             System.out.println("Khong hop le! Moi nhap lai:");
-            System.out.print("\tTen quan / huyen / thi xa -> ");
+            System.out.print("Ten quan / huyen / thi xa: ");
             quan = Main.scan.nextLine();
-            System.out.print("\tTen tinh / thanh pho -> ");
+            System.out.print("Ten tinh / thanh pho: ");
             thanhPho = Main.scan.nextLine();
         }
         this.tenQuan = Main.inHoaChuCaiDauMoiTu(quan);

@@ -65,24 +65,44 @@ public class thannhanManager {
         return (list.length == 0);
     }
 
+    public static int isInList(THANNHAN[] list, String maNV) {
+        for (int i = 0; i < list.length; ++i) {
+            if (list[i].getMaNV().equals(maNV)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static int isInList(THANNHAN[] list, String maNV, String tnName) {
+        for (int i = 0; i < list.length; ++i) {
+            if (list[i].getMaNV().equals(maNV) && list[i].getHoTenThanNhan().equals(tnName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void add(NHANVIEN[] nvList) {
         if (nhanvienManager.isEmpty(nvList)) {
             System.out.println("Danh sach nhan vien rong");
         } else {
-            System.out.print("Moi nhap ma nhan vien: ");
-            String maNV = check.kiemTraMaNhanVien();
-            boolean isExist = false;
-            if (nhanvienManager.isInList(nvList, maNV) != -1) {
-                isExist = true;
-                THANNHAN tn = new THANNHAN();
-                tn.nhap(maNV);
-                this.tnList = add(tnList, tn);
+            String choice = "Y";
+            while (choice.equals("Y")) {
+                System.out.print("Moi nhap ma nhan vien: ");
+                String maNV = check.kiemTraMaNhanVien();
+                if (nhanvienManager.isInList(nvList, maNV) != -1) {
+                    THANNHAN tn = new THANNHAN();
+                    tn.nhap(maNV);
+                    this.tnList = add(tnList, tn);
+                    ftn.write(sortByMaNV());
+                } else {
+                    System.out.println("Khong co nhan vien trong danh sach.");
+                }
+                System.out.print("Ban co muon tiep tuc nhap thong tin ( Y | N ): ");
+                choice = CHECK.yesNoChoice();
             }
-            if (isExist == true) {
-                ftn.write(sortByMaNV());
-            } else {
-                System.out.println("Khong co nhan vien trong danh sach.");
-            }
+
         }
     }
 
@@ -108,65 +128,22 @@ public class thannhanManager {
         }
     }
 
-    public void add(NHANVIEN[] nvList, int number) {
-        if (nhanvienManager.isEmpty(nvList)) {
-            System.out.println("Danh sach nhan vien rong");
-        } else {
-            switch (number) {
-                case 0:
-                    System.out.println("So luong can nhap phai lon hon 0.");
-                    break;
-                case 1:
-                    add(nvList);
-                    break;
-                default:
-                    String maNV;
-                    for (int i = 0; i < number; ++i) {
-                        while (true) {
-                            System.out.print("Moi nhap ma nhan vien: ");
-                            maNV = check.kiemTraMaNhanVien();
-                            if (nhanvienManager.isInList(nvList, maNV) != -1) {
-                                THANNHAN tn = new THANNHAN();
-                                tn.nhap(maNV);
-                                this.tnList = add(tnList, tn);
-                                break;
-                            } else {
-                                System.out.println("Ma nhan vien khong co trong danh sach.");
-                            }
-                        }
-                    }
-                    ftn.write(sortByMaNV());
-                    break;
-            }
-        }
-    }
-
     public void delete(NHANVIEN[] nvList) {
         System.out.print("Nhap ma nhan vien cua than nhan can xoa: ");
         String maNV = check.kiemTraMaNhanVien();
-        boolean isExistNV = false;
-        boolean isExistTN = false;
         if (nhanvienManager.isInList(nvList, maNV) != -1) {
-            isExistNV = true;
             System.out.print("Nhap ho ten cua than nhan can xoa: ");
             String name = check.kiemTraHoTen();
-            for (int i = 0; i < tnList.length; ++i) {
-                if (tnList[i].getMaNV().equals(maNV) && tnList[i].getHoTenThanNhan().equals(name)) {
-                    isExistTN = true;
-                    this.tnList = remove(tnList, i);
-                    System.out.println("Da xoa than nhan.");
-                    break;
-                }
+            if (isInList(tnList, maNV, name) != -1) {
+                this.tnList = remove(tnList, isInList(tnList, maNV, name));
+                ftn.write(sortByMaNV());
+                System.out.println("Da xoa than nhan.");
+            } else {
+                System.out.println("Khong ton tai than nhan ban muon xoa.");
             }
-        }
-        if (!isExistNV) {
+        } else {
             System.out.println("Ma nhan vien \"" + maNV + "\" khong ton tai.");
             return;
-        }
-        if (!isExistTN) {
-            System.out.println("Khong ton tai than nhan ban muon xoa.");
-        } else {
-            ftn.write(sortByMaNV());
         }
     }
 
@@ -176,90 +153,174 @@ public class thannhanManager {
         } else {
             System.out.print("Moi nhap ma nhan vien co than nhan can chinh sua thong tin: ");
             String maNV = check.kiemTraMaNhanVien();
-            int[] temp = new int[5];
-            int count = 0;
-            boolean isExist = false;
-            for (int i = 0; i < tnList.length; ++i) {
-                if (tnList[i].getMaNV().equals(maNV)) {
-                    temp[count] = i;
-                    count++;
-                }
-            }
-            if (count > 0) {
-                System.out.print("Nhap ho ten cua than nhan: ");
+            if (isInList(tnList, maNV) != -1) {
+                System.out.print("Moi nhap ho ten than nhan can chinh sua: ");
                 String name = check.kiemTraHoTen();
-                for (int i = 0; i < count; ++i) {
-                    if (tnList[temp[i]].getHoTenThanNhan().equals(name)) {
-                        isExist = true;
-                        while (true) {
-                            Main.editThanNhanMenu();
-                            System.out.print("Moi nhap lua chon: ");
-                            int choice = Main.kiemTraChoice();
-                            switch (choice) {
-                                case 0: {
-                                    System.out.println("Ban da thoat chinh sua thong tin than nhan.");
-                                    break;
-                                }
-                                case 1: {
-                                    System.out.print("Nhap ho va ten moi cua than nhan: ");
-                                    String newName = check.kiemTraHoTen();
-                                    if (tnList[temp[i]].getHoTenThanNhan().equals(newName)) {
-                                        System.out.println("Trung voi ten cu.");
-                                    } else {
-                                        tnList[temp[i]].setHoTenThanNhan(newName);
-                                    }
-                                    break;
-                                }
-                                case 2: {
-                                    if (tnList[temp[i]].getGioiTinh().equals("Nam")) {
-                                        tnList[temp[i]].setGioiTinh("Nu");
-                                        System.out.println("Da doi gioi tinh sang nu");
-                                    } else {
-                                        tnList[temp[i]].setGioiTinh("Nam");
-                                        System.out.println("Da doi gioi tinh sang nam");
-                                    }
-                                    break;
-                                }
-                                case 3: {
-                                    NGAY newBirthDay = new NGAY();
-                                    newBirthDay.nhapNgay();
-                                    if (tnList[temp[i]].getNgaySinhThanNhan().equals(newBirthDay)) {
-                                        System.out.println("Trung voi ngay sinh cu.");
-                                    } else {
-                                        tnList[temp[i]].setNgaySinhThanNhan(newBirthDay);
-                                    }
-                                    break;
-                                }
-                                case 4: {
-                                    System.out.print("Nhap quan he than nhan moi: ");
-                                    String newQuanHeTN = check.kiemTraChuoiKyTu();
-                                    if (tnList[temp[i]].getQuanHeThanNhan().equals(newQuanHeTN)) {
-                                        System.out.println("Trung voi quan he than nhan cu.");
-                                    } else {
-                                        tnList[temp[i]].setQuanHeThanNhan(newQuanHeTN);
-                                    }
-                                    break;
-                                }
-                                default:
-                                    System.out.println("Sai lua chon.");
-                                    break;
-                            }
-                            if (choice == 0) {
+                if (isInList(tnList, maNV, name) != -1) {
+                    while (true) {
+                        System.out.println("\n============== THONG TIN HIEN TAI ==============");
+                        System.out.println("---------------------------------------------------------------------------");
+                        System.out.printf("| %-30s | %-9s | %-13s | %-10s |\n", "Ho va ten than nhan", "Gioi tinh", "Ngay sinh", "Quan he");
+                        System.out.println("---------------------------------------------------------------------------");
+                        System.out.printf("| %-30s | %-9s | %-13s | %-10s |\n", tnList[isInList(tnList, maNV, name)].getHoTenThanNhan(),
+                                tnList[isInList(tnList, maNV, name)].getGioiTinh(), tnList[isInList(tnList, maNV, name)].getNgaySinhThanNhan(),
+                                tnList[isInList(tnList, maNV, name)].getQuanHeThanNhan());
+                        System.out.println("---------------------------------------------------------------------------");
+                        Main.editThanNhanMenu();
+                        System.out.print("Moi nhap lua chon: ");
+                        int choice = Main.kiemTraChoice();
+                        switch (choice) {
+                            case 0: {
+                                System.out.println("Ban da thoat chinh sua thong tin than nhan.");
                                 break;
                             }
+                            case 1: {
+                                System.out.print("Moi nhap ho va ten moi cua than nhan: ");
+                                String newName = check.kiemTraHoTen();
+                                if (tnList[isInList(tnList, maNV, name)].getHoTenThanNhan().equals(newName)) {
+                                    System.out.println("Trung voi ten cu.");
+                                } else {
+                                    tnList[isInList(tnList, maNV, name)].setHoTenThanNhan(newName);
+                                }
+                                break;
+                            }
+                            case 2: {
+                                if (tnList[isInList(tnList, maNV, name)].getGioiTinh().equals("Nam")) {
+                                    tnList[isInList(tnList, maNV, name)].setGioiTinh("Nu");
+                                    System.out.println("Da doi gioi tinh sang nu");
+                                } else {
+                                    tnList[isInList(tnList, maNV, name)].setGioiTinh("Nam");
+                                    System.out.println("Da doi gioi tinh sang nam");
+                                }
+                                break;
+                            }
+                            case 3: {
+                                NGAY newBirthDay = new NGAY();
+                                newBirthDay.nhapNgay();
+                                if (tnList[isInList(tnList, maNV, name)].getNgaySinhThanNhan().equals(newBirthDay)) {
+                                    System.out.println("Trung voi ngay sinh cu.");
+                                } else {
+                                    tnList[isInList(tnList, maNV, name)].setNgaySinhThanNhan(newBirthDay);
+                                }
+                                break;
+                            }
+                            case 4: {
+                                System.out.print("Moi nhap quan he than nhan moi: ");
+                                String newQuanHeTN = check.kiemTraChuoiKyTu();
+                                if (tnList[isInList(tnList, maNV, name)].getQuanHeThanNhan().equals(newQuanHeTN)) {
+                                    System.out.println("Trung voi quan he than nhan cu.");
+                                } else {
+                                    tnList[isInList(tnList, maNV, name)].setQuanHeThanNhan(newQuanHeTN);
+                                }
+                                break;
+                            }
+                            default:
+                                System.out.println("Sai lua chon.");
+                                break;
                         }
-                        break;
+                        if (choice == 0) {
+                            break;
+                        }
                     }
+                    ftn.write(sortByMaNV());
+                } else {
+                    System.out.println("Khong co than nhan trong danh sach.");
                 }
-            }
-            if (isExist == true) {
-                ftn.write(sortByMaNV());
             } else {
-                System.out.println("Khong co than nhan ban can tim trong danh sach.");
+                System.out.println("Khong co nhan vien trong danh sach.");
             }
         }
     }
 
+//    public void edit() {
+//        if (isEmpty(tnList)) {
+//            System.out.println("Danh sach than nhan rong.");
+//        } else {
+//            System.out.print("Moi nhap ma nhan vien co than nhan can chinh sua thong tin: ");
+//            String maNV = check.kiemTraMaNhanVien();
+//            int[] temp = new int[5];
+//            int count = 0;
+//            boolean isExist = false;
+//            for (int i = 0; i < tnList.length; ++i) {
+//                if (tnList[i].getMaNV().equals(maNV)) {
+//                    temp[count] = i;
+//                    count++;
+//                }
+//            }
+//            if (count > 0) {
+//                System.out.print("Nhap ho ten cua than nhan: ");
+//                String name = check.kiemTraHoTen();
+//                for (int i = 0; i < count; ++i) {
+//                    if (tnList[temp[i]].getHoTenThanNhan().equals(name)) {
+//                        isExist = true;
+//                        while (true) {
+//                            Main.editThanNhanMenu();
+//                            System.out.print("Moi nhap lua chon: ");
+//                            int choice = Main.kiemTraChoice();
+//                            switch (choice) {
+//                                case 0: {
+//                                    System.out.println("Ban da thoat chinh sua thong tin than nhan.");
+//                                    break;
+//                                }
+//                                case 1: {
+//                                    System.out.print("Nhap ho va ten moi cua than nhan: ");
+//                                    String newName = check.kiemTraHoTen();
+//                                    if (tnList[temp[i]].getHoTenThanNhan().equals(newName)) {
+//                                        System.out.println("Trung voi ten cu.");
+//                                    } else {
+//                                        tnList[temp[i]].setHoTenThanNhan(newName);
+//                                    }
+//                                    break;
+//                                }
+//                                case 2: {
+//                                    if (tnList[temp[i]].getGioiTinh().equals("Nam")) {
+//                                        tnList[temp[i]].setGioiTinh("Nu");
+//                                        System.out.println("Da doi gioi tinh sang nu");
+//                                    } else {
+//                                        tnList[temp[i]].setGioiTinh("Nam");
+//                                        System.out.println("Da doi gioi tinh sang nam");
+//                                    }
+//                                    break;
+//                                }
+//                                case 3: {
+//                                    NGAY newBirthDay = new NGAY();
+//                                    newBirthDay.nhapNgay();
+//                                    if (tnList[temp[i]].getNgaySinhThanNhan().equals(newBirthDay)) {
+//                                        System.out.println("Trung voi ngay sinh cu.");
+//                                    } else {
+//                                        tnList[temp[i]].setNgaySinhThanNhan(newBirthDay);
+//                                    }
+//                                    break;
+//                                }
+//                                case 4: {
+//                                    System.out.print("Nhap quan he than nhan moi: ");
+//                                    String newQuanHeTN = check.kiemTraChuoiKyTu();
+//                                    if (tnList[temp[i]].getQuanHeThanNhan().equals(newQuanHeTN)) {
+//                                        System.out.println("Trung voi quan he than nhan cu.");
+//                                    } else {
+//                                        tnList[temp[i]].setQuanHeThanNhan(newQuanHeTN);
+//                                    }
+//                                    break;
+//                                }
+//                                default:
+//                                    System.out.println("Sai lua chon.");
+//                                    break;
+//                            }
+//                            if (choice == 0) {
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                }
+//            }
+//            if (isExist == true) {
+//                ftn.write(sortByMaNV());
+//            } else {
+//                System.out.println("Khong co than nhan ban can tim trong danh sach.");
+//            }
+//        }
+//    }
     public THANNHAN[] sort(THANNHAN[] tnArr) {
         if (isEmpty(tnArr)) {
             return null;
@@ -319,11 +380,14 @@ public class thannhanManager {
             System.out.println("Danh sach than nhan rong.");
         } else {
             System.out.println("\n============== DANH SACH THAN NHAN ==============");
-            System.out.println("---------------------------------------------------------------------------------------");
-            System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", "Ma nhan vien", "Ho va ten than nhan", "Gioi tinh", "Ngay sinh", "Quan he");
+            System.out.println("-----------------------------------------------------------------------------------------");
+            System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", "Ma nhan vien", "Ho va ten than nhan",
+                    "Gioi tinh", "Ngay sinh", "Quan he");
             System.out.println("------------------------------------------------------------------------------------------");
             for (int i = 0; i < tnList.length; ++i) {
-                System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", tnList[i].getMaNV(), tnList[i].getHoTenThanNhan(), tnList[i].getGioiTinh(), tnList[i].getNgaySinhThanNhan(), tnList[i].getQuanHeThanNhan());
+                System.out.printf("| %-12s | %-30s | %-9s | %-13s | %-10s |\n", tnList[i].getMaNV(),
+                        tnList[i].getHoTenThanNhan(), tnList[i].getGioiTinh(), tnList[i].getNgaySinhThanNhan(),
+                        tnList[i].getQuanHeThanNhan());
             }
             System.out.println("------------------------------------------------------------------------------------------");
         }
@@ -360,8 +424,7 @@ public class thannhanManager {
                     } else {
                         System.out.println("Khong ton tai than nhan cua nhan vien.");
                     }
-                }
-                else {
+                } else {
                     System.out.println("Khong ton tai nhan vien.");
                 }
             }

@@ -2,7 +2,7 @@ package quanlynhansu;
 
 import java.io.Serializable;
 
-public class NHANVIEN implements Serializable, NhapXuat {
+public abstract class NHANVIEN implements Serializable, NhapXuat {
     private static final long serialVersionUID = 1L;
 
     protected String maNhanVien;
@@ -122,37 +122,29 @@ public class NHANVIEN implements Serializable, NhapXuat {
         System.out.print("Chuc vu -> ");
         this.chucVu = check.kiemTraChuoiKyTu();
         System.out.println("Hop dong: ");
-        this.hopDong.nhapHopDong();
+        this.hopDong.nhap();
     }
     
     public void nhap(String maNV) {
         this.maNhanVien = maNV;
-        System.out.print("Ho ten nhan vien -> ");
+        System.out.print("Ho ten nhan vien: ");
         this.hoTen = check.kiemTraHoTen();
         System.out.println("Ngay sinh: ");
         this.ngaySinh.nhapNgay();
-        System.out.print("Gioi tinh (Nam / Nu) -> ");
+        System.out.print("Gioi tinh (Nam / Nu): ");
         this.gioiTinh = check.kiemTraGioiTinh();
-        System.out.print("So dien thoai -> ");
+        System.out.print("So dien thoai: ");
         this.soDienThoai = check.kiemTraSoDienThoai();
         System.out.println("Dia chi: ");
         this.diaChi.nhapDiaChi();
-        System.out.print("Chuc vu -> ");
+        System.out.print("Chuc vu: ");
         this.chucVu = check.kiemTraChuoiKyTu();
         System.out.println("Hop dong: ");
-        this.hopDong.nhapHopDong();
+        this.hopDong.nhap();
     }
 
     @Override
-    public void xuat() {
-        System.out.println("Ma nhan vien: " + this.maNhanVien);
-        System.out.println("Ho ten: " + this.hoTen);
-        System.out.println("Ngay sinh: " + ngaySinh);
-        System.out.println("Gioi tinh: " + this.gioiTinh);
-        System.out.println("So dien thoai: " + this.soDienThoai);
-        System.out.println("Dia chi: " + diaChi.toString());
-        System.out.println("Chuc vu: " + this.chucVu);
-        hopDong.xuatHopDong();
-    }
+    public void xuat(){}
+    
 
 }

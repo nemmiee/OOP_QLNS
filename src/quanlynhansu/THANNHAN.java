@@ -65,7 +65,16 @@ public class THANNHAN implements Serializable, NhapXuat {
     public void setQuanHeThanNhan(String quanHeThanNhan) {
         this.quanHeThanNhan = quanHeThanNhan;
     }
-    
+
+    public boolean compareThanNhan(THANNHAN tn) {
+        if (this.maNV == tn.getMaNV() && this.hoTenThanNhan.equals(tn.getHoTenThanNhan()) && this.gioiTinh.equals(tn.getGioiTinh())
+                && this.ngaySinhThanNhan.compareDate(tn.getNgaySinhThanNhan()) && this.quanHeThanNhan.equals(tn.getQuanHeThanNhan())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public void nhap() {
         System.out.print("Nhap ma nhan vien: ");

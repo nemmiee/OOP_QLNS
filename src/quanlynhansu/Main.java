@@ -86,6 +86,7 @@ public class Main {
         thannhanManager tnManager = new thannhanManager();
         chamcongManager ccManager = new chamcongManager();
         luongManager luongManager = new luongManager();
+        phongbanManager pbManager = new phongbanManager();
         menu();
         int choice = 0;
         boolean exit = false;
@@ -140,23 +141,7 @@ public class Main {
                                 flag = true;
                                 break;
                             case 1: {
-                                System.out.println("-> Nhap 1 de them 1 than nhan.");
-                                System.out.println("-> Nhap 2 de them nhieu than nhan");
-                                System.out.print("Moi nhap lua chon: ");
-                                int input2 = kiemTraChoice();
-                                switch (input2) {
-                                    case 1:
-                                        tnManager.add(nvManager.getNhanVienList());
-                                        break;
-                                    case 2:
-                                        System.out.print("Nhap so luong than nhan: ");
-                                        int amount = (int) CHECK.kiemTraSoNguyenDuong();
-                                        tnManager.add(nvManager.getNhanVienList(), amount);
-                                        break;
-                                    default:
-                                        System.out.println("Ban da nhap sai lua chon.");
-                                        break;
-                                }
+                                tnManager.add(nvManager.getNhanVienList());
                                 break;
                             }
                             case 2: {
@@ -244,7 +229,7 @@ public class Main {
                                 break;
                             }
                             case 1: {
-                                luongManager.add(nvManager.getNhanVienList(),ccManager.getCcList());
+                                luongManager.add(nvManager.getNhanVienList(), ccManager.getCcList());
                                 break;
                             }
                             case 2: {
@@ -275,6 +260,85 @@ public class Main {
                     }
                     break;
                 }
+                case 9: {
+                    // Phong ban
+                    int input;
+                    boolean flag = false;
+                    while (flag == false) {
+                        phongBanMenu();
+                        System.out.print("Moi lua chon: ");
+                        input = kiemTraChoice();
+                        switch (input) {
+                            case 0: {
+                                System.out.println("Ban da thoat khoi quan ly phong ban.");
+                                flag = true;
+                                break;
+                            }
+                            case 1: {
+                                pbManager.add(nvManager.getNhanVienList());
+                                break;
+                            }
+                            case 2: {
+                                pbManager.delete();
+                                break;
+                            }
+                            case 3: {
+                                pbManager.editTenPhongBan();
+                                break;
+                            }
+                            case 4: {
+                                pbManager.editTruongPhong();
+                                break;
+                            }
+                            case 5: {
+                                pbManager.printList();
+                                break;
+                            }
+                            default: {
+                                System.out.println("Nhap sai lua chon.");
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 11: {
+                    int input;
+                    boolean flag = false;
+                    while (!flag) {
+                        searchMenu();
+                        System.out.print("Moi lua chon: ");
+                        input = kiemTraChoice();
+                        switch (input) {
+                            case 0: {
+                                System.out.println("Ban da thoat.");
+                                flag = true;
+                                break;
+                            }
+                            case 4: {
+                                System.out.println("So luong nhan vien cua cong ty la: " + nvManager.getNhanVienList().length);
+                                break;
+                            }
+                            case 5: {
+                                System.out.println("So luong nhan vien chinh cua cong ty la: " + nvManager.getSoLuongNVChinh());
+                                break;
+                            }
+                            case 6: {
+                                System.out.println("So luong nhan vien phu cua cong ty la: " + nvManager.getSoLuongNVPhu());
+                                break;
+                            }
+                            case 7: {
+                                System.out.println("So luong thuc tap sinh cua cong ty la: " + nvManager.getSoLuongThucTapSinh());
+                                break;
+                            }
+                            default: {
+                                System.out.println("Nhap sai lua chon.");
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
                 default: {
                     System.out.println("Nhap sai lua chon!");
                     break;
@@ -285,6 +349,15 @@ public class Main {
             }
             menu();
         }
+    }
+
+    public static void loaiNhanVien() {
+        System.out.println();
+        System.out.println("#-------------------------------------#");
+        System.out.println("|   Nhap 1 de them nhan vien chinh.   |");
+        System.out.println("|   Nhap 2 de them nhan vien phu.     |");
+        System.out.println("|   Nhap 3 de them thuc tap sinh.     |");
+        System.out.println("#-------------------------------------#");
     }
 
     public static void menu() {
@@ -298,19 +371,22 @@ public class Main {
         System.out.println("||  Nhap 6 de quan ly than nhan.                      ||");
         System.out.println("||  Nhap 7 de quan ly cham cong.                      ||");
         System.out.println("||  Nhap 8 de quan ly tinh luong.                     ||");
+        System.out.println("||  Nhap 9 de quan ly phong ban.                      ||");
+        System.out.println("||  Nhap 11 de xem nhung chuc nang khac.              ||");
         System.out.println("||  Nhap 0 de thoat.                                  ||");
         System.out.println("##====================================================##");
     }
 
     public static void editNhanVienMenu() {
         System.out.println();
-        System.out.println("#---------- MENU SUA NHAN VIEN -----------#");
+        System.out.println("#------- MENU CHINH SUA NHAN VIEN --------#");
         System.out.println("|   Nhap 1 de sua ho va ten nhan vien.    |");
-        System.out.println("|   Nhap 2 de sua ngay sinh.              |");
-        System.out.println("|   Nhap 3 de sua gioi tinh.              |");
+        System.out.println("|   Nhap 2 de sua gioi tinh.              |");
+        System.out.println("|   Nhap 3 de sua ngay sinh.              |");
         System.out.println("|   Nhap 4 de sua so dien thoai.          |");
         System.out.println("|   Nhap 5 de sua dia chi.                |");
         System.out.println("|   Nhap 6 de sua chuc vu.                |");
+        System.out.println("|   Nhap 7 de sua email.                  |");
         System.out.println("|   Nhap 0 de thoat.                      |");
         System.out.println("#-----------------------------------------#");
     }
@@ -358,5 +434,33 @@ public class Main {
         System.out.println("|   Nhap 4 de in bang tinh luong cua ca nhan.   |");
         System.out.println("|   Nhap 0 de thoat.                            |");
         System.out.println("#-----------------------------------------------#");
+    }
+
+    public static void phongBanMenu() {
+        System.out.println();
+        System.out.println("#------------------ MENU PHONG BAN ---------------------#");
+        System.out.println("|   Nhap 1 de them phong ban.                           |");
+        System.out.println("|   Nhap 2 de xoa phong ban.                            |");
+        System.out.println("|   Nhap 3 de thay doi ten phong ban.                   |");
+        System.out.println("|   Nhap 4 de thay doi truong phong.                    |");
+        System.out.println("|   Nhap 5 de in danh sach phong ban.                   |");
+        System.out.println("|   Nhap 6 de tim kiem phong ban.                       |");
+        System.out.println("|   Nhap 7 de in danh sach nhan vien trong phong ban.   |");
+        System.out.println("|   Nhap 0 de thoat.                                    |");
+        System.out.println("#-------------------------------------------------------#");
+    }
+
+    public static void searchMenu() {
+        System.out.println();
+        System.out.println("#-------------- MENU CAC CHUC NANG KHAC ----------------#");
+        System.out.println("|   Nhap 1 de tim nhan vien theo ma nhan vien.          |");
+        System.out.println("|   Nhap 2 de tim nhan vien theo ten.                   |");
+        System.out.println("|   Nhap 3 de tim nhan vien theo gioi tinh.             |");
+        System.out.println("|   Nhap 4 de xem so luong nhan vien cua cong ty.       |");
+        System.out.println("|   Nhap 5 de xem so luong nhan vien chinh.             |");
+        System.out.println("|   Nhap 6 de xem so luong nhan vien phu.               |");
+        System.out.println("|   Nhap 7 de xem so luong thuc tap sinh.               |");
+        System.out.println("|   Nhap 0 de thoat.                                    |");
+        System.out.println("#-------------------------------------------------------#");
     }
 }

@@ -23,6 +23,48 @@ public class CHECK implements Serializable {
             System.out.print("Moi nhap lai: ");
         }
     }
+    
+    public String kiemTraMaNVChinh() {
+        String input;
+        while (true) {
+            input = Main.scan.nextLine();
+            input = input.trim();
+            if (input.matches("C[0-9]{4}")) {
+                return input;
+            } else {
+                System.out.println("Ma nhan vien khong phu hop. Ma nhan vien chinh phai co ky tu \"C\" dau tien va 4 so theo sau. VD: C0001");
+            }
+            System.out.print("Moi nhap lai: ");
+        }
+    }
+    
+    public String kiemTraMaNVPhu() {
+        String input;
+        while (true) {
+            input = Main.scan.nextLine();
+            input = input.trim();
+            if (input.matches("P[0-9]{4}")) {
+                return input;
+            } else {
+                System.out.println("Ma nhan vien khong phu hop. Ma nhan vien phu phai co ky tu \"P\" dau tien va 4 so theo sau. VD: P0001");
+            }
+            System.out.print("Moi nhap lai: ");
+        }
+    }
+    
+    public String kiemTraMaThucTapSinh() {
+        String input;
+        while (true) {
+            input = Main.scan.nextLine();
+            input = input.trim();
+            if (input.matches("T[0-9]{4}")) {
+                return input;
+            } else {
+                System.out.println("Ma nhan vien khong phu hop. Ma thuc tap sinh phai co ky tu \"T\" dau tien va 4 so theo sau. VD: T0001");
+            }
+            System.out.print("Moi nhap lai: ");
+        }
+    }
 
     public String kiemTraHoTen() {
         String input;
@@ -193,7 +235,7 @@ public class CHECK implements Serializable {
             } else {
                 System.out.println("Email khong hop le! Moi nhap theo dinh dang: user@gmail.com");
             }
-            System.out.print("Email -> ");
+            System.out.print("Email: ");
         }
     }
 
@@ -202,12 +244,12 @@ public class CHECK implements Serializable {
         while (true) {
             input = Main.scan.nextLine();
             input = input.trim();
-            if (input.matches("IT|KT|NS|DH")) {
+            if (input.matches("[A-Z]{2}")) {
                 return input;
             } else {
-                System.out.println("Ma phong khong hop le! Ma phong phai thuoc (IT | KT | NS | DH)");
+                System.out.println("Ma phong khong hop le! Ma phong ban phai la 2 chu cai viet hoa (VD: IT)");
             }
-            System.out.print("Moi nhap ma phong ban -> ");
+            System.out.print("Moi nhap ma phong ban: ");
         }
     }
 
@@ -266,4 +308,5 @@ public class CHECK implements Serializable {
             return -1;
         }
     }
+    
 }
