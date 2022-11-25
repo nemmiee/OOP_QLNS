@@ -34,7 +34,7 @@ public class FilePhongBan {
             closeStream(fos);
             closeStream(oos);
         }
-    }
+    }    
     
     public PHONGBAN[] read() {
         PHONGBAN[] pbList = null;

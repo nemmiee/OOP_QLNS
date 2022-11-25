@@ -117,6 +117,7 @@ public class chamcongManager {
         if (nhanvienManager.isEmpty(nvList)) {
             System.out.println("Danh sach nhan vien rong.");
         } else {
+            checkFirst(nvList);
             System.out.print("Moi nhap ma nhan vien: ");
             String maNV = check.kiemTraMaNhanVien();
             boolean isExistNV = false;
@@ -153,6 +154,7 @@ public class chamcongManager {
     }
 
     public void add(NHANVIEN[] nvList) {
+        checkFirst(nvList);
         String choice1 = "Y", choice2 = "Y";
         while (choice1.equals("Y")) {
             System.out.print("Moi nhap nam: ");
@@ -210,7 +212,8 @@ public class chamcongManager {
         }
     }
 
-    public void delete() {
+    public void delete(NHANVIEN[] nvList) {
+        checkFirst(nvList);
         System.out.println("Nhap 1 de xoa tung ca nhan.");
         System.out.println("Nhap 2 de xoa 1 bang cham cong.");
         System.out.print("Moi lua chon: ");
@@ -344,13 +347,16 @@ public class chamcongManager {
         if (isEmpty(ccList)) {
             System.out.println("Khong ton tai bang cham cong " + thang + "/" + nam);
         } else {
+            checkFirst(nvList);
             if (isExistInList(thang, nam)) {
                 ccList = sortByMaNV();
                 System.out.println("\n============== BANG CHAM CONG " + thang + "/" + nam + " ==============");
-                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("+--------------------------------------------------------------------------"
+                        + "---------------------------------------------------------------------------+");
                 System.out.printf("| %-12s | %-30s | %-20s | %-15s | %-17s | %-18s | %-17s |\n", "Ma nhan vien",
                         "Ho ten nhan vien", "Chuc vu", "So ngay du cong", "So ngay nua cong", "So ngay khong cong", "Tong so ngay cong");
-                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("+---------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------+");
                 for (int i = 0; i < ccList.length; ++i) {
                     if (ccList[i].getThang() == thang && ccList[i].getNam() == nam) {
                         System.out.printf("| %-12s | %-30s | %-20s | %15s | %17s | %18s | %17s |\n",
@@ -359,7 +365,8 @@ public class chamcongManager {
                                 ccList[i].getNuaNgayCong(), ccList[i].getKhongCong(), ccList[i].tongNgayCong());
                     }
                 }
-                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("+-----------------------------------------------------------------------"
+                        + "------------------------------------------------------------------------------+");
             } else {
                 System.out.println("Khong ton tai bang cham cong " + thang + "/" + nam);
             }
@@ -370,6 +377,7 @@ public class chamcongManager {
         if (isEmpty(ccList)) {
             System.out.println("Khong ton tai bang cham cong nao ca.");
         } else {
+            checkFirst(nvList);
             System.out.print("Moi nhap ma nhan vien: ");
             String maNV = check.kiemTraMaNhanVien();
             if (nhanvienManager.isInList(nvList, maNV) != -1) {
@@ -384,23 +392,37 @@ public class chamcongManager {
                             System.out.println("\n| Ma nhan vien: " + list[i].getMaNV() + " | Ho va ten: "
                                     + nvList[nhanvienManager.isInList(nvList, maNV)].hoTen + " | Chuc vu: "
                                     + nvList[nhanvienManager.isInList(nvList, maNV)].getChucVu() + " |");
-                            System.out.println("--------------------------------------------------------------------------------------------");
+                            System.out.println("+------------------------------------------------------------------------------------------+");
                             System.out.printf("| %-9s | %-15s | %-17s | %-18s | %-17s |\n", "Thang/Nam", "So ngay du cong", "So ngay nua cong",
                                     "So ngay khong cong", "Tong so ngay cong");
-                            System.out.println("--------------------------------------------------------------------------------------------");
+                            System.out.println("+------------------------------------------------------------------------------------------+");
                         }
                         System.out.printf("| %2d/%-6d | %15s | %17s | %18s | %17s |\n", list[i].getThang(), list[i].getNam(),
                                 list[i].getDuNgayCong(), list[i].getNuaNgayCong(), list[i].getKhongCong(), list[i].tongNgayCong());
                     }
                 }
                 if (count != 0) {
-                    System.out.println("--------------------------------------------------------------------------------------------");
+                    System.out.println("+------------------------------------------------------------------------------------------+");
                 } else {
                     System.out.println("Khong co nhan vien trong bang cham cong");
                 }
             } else {
                 System.out.println("Ma nhan vien khong ton tai.");
             }
+        }
+    }
+
+    public void checkFirst(NHANVIEN[] nvList) {
+        boolean flag = false;
+        for (int i = 0; i < ccList.length; i++) {
+            if (nhanvienManager.isInList(nvList, ccList[i].getMaNV()) == -1) {
+                flag = true;
+                ccList = remove(ccList, i);
+                --i;
+            }
+        }
+        if (flag) {
+            fcc.write(sortByMaNV());
         }
     }
 }

@@ -107,13 +107,13 @@ public class Main {
                     System.out.println("          #================================#\n");
                     exit = true;
                     break;
-                }
+                } 
                 case 1: {
-                    nvManager.add();
+                    nvManager.add(pbManager.getPbList());
                     break;
                 }
                 case 2: {
-                    nvManager.edit();
+                    nvManager.edit(pbManager.getPbList());
                     break;
                 }
                 case 3: {
@@ -121,13 +121,13 @@ public class Main {
                     break;
                 }
                 case 4: {
-                    nvManager.printListALL();
+                    nvManager.printListALL(pbManager.getPbList());
                     break;
                 }
                 case 5: {
-                    nvManager.printPersonalInfo();
+                    nvManager.printPersonalInfo(pbManager.getPbList());
+                    break;
                 }
-                break;
                 case 6: {
                     // Than nhan
                     boolean flag = false;
@@ -145,7 +145,7 @@ public class Main {
                                 break;
                             }
                             case 2: {
-                                tnManager.edit();
+                                tnManager.edit(nvManager.getNhanVienList());
                                 break;
                             }
                             case 3: {
@@ -153,7 +153,7 @@ public class Main {
                                 break;
                             }
                             case 4: {
-                                tnManager.printThanNhanList();
+                                tnManager.printThanNhanList(nvManager.getNhanVienList());
                                 break;
                             }
                             case 5: {
@@ -187,7 +187,7 @@ public class Main {
                                 break;
                             }
                             case 2: {
-                                ccManager.delete();
+                                ccManager.delete(nvManager.getNhanVienList());
                                 break;
                             }
                             case 3: {
@@ -233,7 +233,7 @@ public class Main {
                                 break;
                             }
                             case 2: {
-                                luongManager.delete();
+                                luongManager.delete(nvManager.getNhanVienList());
                                 break;
                             }
                             case 3: {
@@ -279,19 +279,43 @@ public class Main {
                                 break;
                             }
                             case 2: {
-                                pbManager.delete();
+                                pbManager.addTruongPhong(nvManager.getNhanVienList());
                                 break;
                             }
                             case 3: {
-                                pbManager.editTenPhongBan();
+                                pbManager.delete();
                                 break;
                             }
                             case 4: {
-                                pbManager.editTruongPhong();
+                                nvManager.deleteNVFromPhongBan(pbManager.getPbList());
                                 break;
                             }
                             case 5: {
-                                pbManager.printList();
+                                pbManager.editTenPhongBan();
+                                break;
+                            }
+                            case 6: {
+                                pbManager.editTruongPhong();
+                                break;
+                            }
+                            case 7: {
+                                pbManager.printSinglePhongBanInfo();
+                                break;
+                            }
+                            case 8: {
+                                pbManager.printList(); 
+                                break;
+                            }
+                            case 9: {
+                                pbManager.printNVPhongBanList(nvManager.getNhanVienList());
+                                break;
+                            }
+                            case 10: {
+                                nvManager.printNVKhongCoPhongBan();
+                                break;
+                            }
+                            case 11: {                                
+                                pbManager.printTruongPhongInfo(nvManager.getNhanVienList());
                                 break;
                             }
                             default: {
@@ -315,6 +339,18 @@ public class Main {
                                 flag = true;
                                 break;
                             }
+                            case 1: {
+                                nvManager.printPersonalInfo(pbManager.getPbList());
+                                break;
+                            }
+                            case 2: {
+                                nvManager.printNVByName(pbManager.getPbList());
+                                break;
+                            }
+                            case 3: {
+                                nvManager.printNVByGender(pbManager.getPbList());
+                                break;
+                            }
                             case 4: {
                                 System.out.println("So luong nhan vien cua cong ty la: " + nvManager.getNhanVienList().length);
                                 break;
@@ -329,6 +365,18 @@ public class Main {
                             }
                             case 7: {
                                 System.out.println("So luong thuc tap sinh cua cong ty la: " + nvManager.getSoLuongThucTapSinh());
+                                break;
+                            }
+                            case 8: {
+                                nvManager.printNVChinhList(pbManager.getPbList());
+                                break;
+                            }
+                            case 9: {
+                                nvManager.printNVPhuList(pbManager.getPbList());
+                                break;
+                            }
+                            case 10: {
+                                nvManager.printThucTapSinhList(pbManager.getPbList());
                                 break;
                             }
                             default: {
@@ -387,6 +435,7 @@ public class Main {
         System.out.println("|   Nhap 5 de sua dia chi.                |");
         System.out.println("|   Nhap 6 de sua chuc vu.                |");
         System.out.println("|   Nhap 7 de sua email.                  |");
+        System.out.println("|   Nhap 8 de sua phong ban.              |");
         System.out.println("|   Nhap 0 de thoat.                      |");
         System.out.println("#-----------------------------------------#");
     }
@@ -438,16 +487,20 @@ public class Main {
 
     public static void phongBanMenu() {
         System.out.println();
-        System.out.println("#------------------ MENU PHONG BAN ---------------------#");
-        System.out.println("|   Nhap 1 de them phong ban.                           |");
-        System.out.println("|   Nhap 2 de xoa phong ban.                            |");
-        System.out.println("|   Nhap 3 de thay doi ten phong ban.                   |");
-        System.out.println("|   Nhap 4 de thay doi truong phong.                    |");
-        System.out.println("|   Nhap 5 de in danh sach phong ban.                   |");
-        System.out.println("|   Nhap 6 de tim kiem phong ban.                       |");
-        System.out.println("|   Nhap 7 de in danh sach nhan vien trong phong ban.   |");
-        System.out.println("|   Nhap 0 de thoat.                                    |");
-        System.out.println("#-------------------------------------------------------#");
+        System.out.println("#-------------------- MENU PHONG BAN -----------------------#");
+        System.out.println("|   Nhap 1 de them phong ban.                               |");
+        System.out.println("|   Nhap 2 de them truong phong.                            |");
+        System.out.println("|   Nhap 3 de xoa phong ban.                                |");
+        System.out.println("|   Nhap 4 de xoa nhan vien khoi phong ban.                 |");
+        System.out.println("|   Nhap 5 de thay doi ten phong ban.                       |");
+        System.out.println("|   Nhap 6 de thay doi truong phong.                        |");
+        System.out.println("|   Nhap 7 de tim kiem phong ban.                           |");
+        System.out.println("|   Nhap 8 de in danh sach phong ban.                       |");
+        System.out.println("|   Nhap 9 de in danh sach nhan vien trong phong ban.       |");
+        System.out.println("|   Nhap 10 de in danh sach nhan vien khong co phong ban.   |");
+        System.out.println("|   Nhap 11 de in thong tin cac truong phong.               |");
+        System.out.println("|   Nhap 0 de thoat.                                        |");
+        System.out.println("#-----------------------------------------------------------#");
     }
 
     public static void searchMenu() {
@@ -460,6 +513,9 @@ public class Main {
         System.out.println("|   Nhap 5 de xem so luong nhan vien chinh.             |");
         System.out.println("|   Nhap 6 de xem so luong nhan vien phu.               |");
         System.out.println("|   Nhap 7 de xem so luong thuc tap sinh.               |");
+        System.out.println("|   Nhap 8 de xem danh sach nhan vien chinh.            |");
+        System.out.println("|   Nhap 9 de xem danh sach nhan vien phu.              |");
+        System.out.println("|   Nhap 10 de xem danh sach thuc tap sinh.             |");
         System.out.println("|   Nhap 0 de thoat.                                    |");
         System.out.println("#-------------------------------------------------------#");
     }

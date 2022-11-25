@@ -12,7 +12,7 @@ public class PHONGBAN implements Serializable, NhapXuat {
     CHECK check = new CHECK();
     
     public PHONGBAN() {
-        maTruongPhong = "";
+        maTruongPhong = "None";
         maPhong = "";
         tenPhong = "";
     }
@@ -55,6 +55,12 @@ public class PHONGBAN implements Serializable, NhapXuat {
         this.maPhong = Main.scan.nextLine();
         System.out.print("Ten phong ban: ");
         this.tenPhong = Main.scan.nextLine();
+    }
+    
+    public void nhap(String maPhong) {
+        this.maPhong = maPhong;
+        System.out.print("Ten phong ban: ");
+        this.tenPhong = check.kiemTraChuoiKyTu();
     }
     
     public void nhap(String maPhong, String maTruongPhong) {

@@ -119,87 +119,139 @@ public class nhanvienManager {
         return -1;
     }
 
-    public void add() {
-        String choice = "Y";
-        int input;
-        while (choice.equals("Y")) {
-            Main.loaiNhanVien();
-            System.out.print("Moi nhap lua chon: ");
-            input = (int) CHECK.kiemTraSoNguyenDuong();
-            switch (input) {
-                case 1: {
-                    System.out.print("Moi nhap ma nhan vien chinh: ");
-                    String maNV = check.kiemTraMaNVChinh();
-                    if (isEmpty(nvList)) {
-                        NHANVIEN nv = new NHANVIENCHINH();
-                        nv.nhap(maNV);
-                        nvList = add(nvList, nv);
-                        fnv.write(nvList);
-                    } else {
-                        if (isInList(nvList, maNV) == -1) {
+    public void add(PHONGBAN[] pbList) {
+        if (phongbanManager.isEmpty(pbList)) {
+            System.out.println("Khong co phong ban nao.");
+        } else {
+            String choice = "Y";
+            int input;
+            while (choice.equals("Y")) {
+                Main.loaiNhanVien();
+                System.out.print("Moi nhap lua chon: ");
+                input = (int) CHECK.kiemTraSoNguyenDuong();
+                switch (input) {
+                    case 1: {
+                        System.out.print("Moi nhap ma nhan vien chinh: ");
+                        String maNV = check.kiemTraMaNVChinh();
+                        if (isEmpty(nvList)) {
                             NHANVIEN nv = new NHANVIENCHINH();
                             nv.nhap(maNV);
+                            String maPhong;
+                            while (true) {
+                                phongbanManager.printMaAndTen(pbList);
+                                System.out.print("\nMoi nhap ma phong: ");
+                                maPhong = check.kiemTraMaPhongBan();
+                                if (phongbanManager.isInList(pbList, maPhong) != -1) {
+                                    ((NHANVIENCHINH) nv).setMaPhong(maPhong);
+                                    break;
+                                } else {
+                                    System.out.println("Khong ton tai ma phong.");
+                                }
+                            }
                             nvList = add(nvList, nv);
-                            fnv.write(sortByMaNV());
+                            fnv.write(nvList);
                         } else {
-                            System.out.println("Da ton tai ma nhan vien.");
+                            if (isInList(nvList, maNV) == -1) {
+                                NHANVIEN nv = new NHANVIENCHINH();
+                                nv.nhap(maNV);
+                                String maPhong;
+                                while (true) {
+                                    phongbanManager.printMaAndTen(pbList);
+                                    System.out.print("\nMoi nhap ma phong: ");
+                                    maPhong = check.kiemTraMaPhongBan();
+                                    if (phongbanManager.isInList(pbList, maPhong) != -1) {
+                                        ((NHANVIENCHINH) nv).setMaPhong(maPhong);
+                                        break;
+                                    } else {
+                                        System.out.println("Khong ton tai ma phong.");
+                                    }
+                                }
+                                nvList = add(nvList, nv);
+                                fnv.write(sortByMaNV());
+                            } else {
+                                System.out.println("Da ton tai ma nhan vien.");
+                            }
                         }
+                        break;
                     }
-                    break;
-                }
-                case 2: {
-                    System.out.print("Moi nhap ma nhan vien phu: ");
-                    String maNV = check.kiemTraMaNVPhu();
-                    if (isEmpty(nvList)) {
-                        NHANVIEN nv = new NHANVIENPHU();
-                        nv.nhap(maNV);
-                        nvList = add(nvList, nv);
-                        fnv.write(nvList);
-                    } else {
-                        if (isInList(nvList, maNV) == -1) {
+                    case 2: {
+                        System.out.print("Moi nhap ma nhan vien phu: ");
+                        String maNV = check.kiemTraMaNVPhu();
+                        if (isEmpty(nvList)) {
                             NHANVIEN nv = new NHANVIENPHU();
                             nv.nhap(maNV);
                             nvList = add(nvList, nv);
-                            fnv.write(sortByMaNV());
+                            fnv.write(nvList);
                         } else {
-                            System.out.println("Da ton tai ma nhan vien.");
+                            if (isInList(nvList, maNV) == -1) {
+                                NHANVIEN nv = new NHANVIENPHU();
+                                nv.nhap(maNV);
+                                nvList = add(nvList, nv);
+                                fnv.write(sortByMaNV());
+                            } else {
+                                System.out.println("Da ton tai ma nhan vien.");
+                            }
                         }
+                        break;
                     }
-                    break;
-                }
-
-                case 3: {
-                    System.out.print("Moi nhap ma nhan vien cua thuc tap sinh: ");
-                    String maNV = check.kiemTraMaThucTapSinh();
-                    if (isEmpty(nvList)) {
-                        NHANVIEN nv = new THUCTAPSINH();
-                        nv.nhap(maNV);
-                        nvList = add(nvList, nv);
-                        fnv.write(nvList);
-                    } else {
-                        if (isInList(nvList, maNV) == -1) {
+                    case 3: {
+                        System.out.print("Moi nhap ma nhan vien cua thuc tap sinh: ");
+                        String maNV = check.kiemTraMaThucTapSinh();
+                        if (isEmpty(nvList)) {
                             NHANVIEN nv = new THUCTAPSINH();
                             nv.nhap(maNV);
+                            String maPhong;
+                            while (true) {
+                                phongbanManager.printMaAndTen(pbList);
+                                System.out.print("\nMoi nhap ma phong: ");
+                                maPhong = check.kiemTraMaPhongBan();
+                                if (phongbanManager.isInList(pbList, maPhong) != -1) {
+                                    ((THUCTAPSINH) nv).setMaPhong(maPhong);
+                                    break;
+                                } else {
+                                    System.out.println("Khong ton tai ma phong.");
+                                }
+                            }
                             nvList = add(nvList, nv);
-                            fnv.write(sortByMaNV());
-                            break;
+                            fnv.write(nvList);
                         } else {
-                            System.out.println("Da ton tai ma nhan vien.");
+                            if (isInList(nvList, maNV) == -1) {
+                                NHANVIEN nv = new THUCTAPSINH();
+                                nv.nhap(maNV);
+                                String maPhong;
+                                while (true) {
+                                    phongbanManager.printMaAndTen(pbList);
+                                    System.out.print("\nMoi nhap ma phong: ");
+                                    maPhong = check.kiemTraMaPhongBan();
+                                    if (phongbanManager.isInList(pbList, maPhong) != -1) {
+                                        ((THUCTAPSINH) nv).setMaPhong(maPhong);
+                                        break;
+                                    } else {
+                                        System.out.println("Khong ton tai ma phong.");
+                                    }
+                                }
+                                nvList = add(nvList, nv);
+                                fnv.write(sortByMaNV());
+                                break;
+                            } else {
+                                System.out.println("Da ton tai ma nhan vien.");
+                            }
                         }
+                        break;
                     }
-                    break;
+                    default: {
+                        System.out.println("Nhap sai lua chon.");
+                        break;
+                    }
                 }
-                default: {
-                    System.out.println("Nhap sai lua chon.");
-                    break;
-                }
+                System.out.print("Ban co muon tiep tuc nhap thong tin ( Y | N ): ");
+                choice = CHECK.yesNoChoice();
             }
-            System.out.print("Ban co muon tiep tuc nhap thong tin ( Y | N ): ");
-            choice = CHECK.yesNoChoice();
         }
     }
 
-    public void edit() {
+    public void edit(PHONGBAN[] pbList) {
+        checkFirst(pbList);
         System.out.print("Moi nhap ma nhan vien cua nhan vien can sua: ");
         String maNV = check.kiemTraMaNhanVien();
         if (isInList(nvList, maNV) != -1) {
@@ -208,43 +260,42 @@ public class nhanvienManager {
             while (flag) {
                 // In thong tin hien tai
                 System.out.println("\n============== THONG TIN HIEN TAI ==============\n"
-                        + "---------------------------------------------------------------------------"
-                        + "------------------------------------------------------------------------------------"
-                        + "-----------------------------------------------------------------------------------");
-                System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s |\n",
+                        + "+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+                System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
                         "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
-                        "Chuc vu", "Email", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
-                System.out.println("---------------------------------------------------------------------------"
-                        + "------------------------------------------------------------------------------------"
-                        + "-----------------------------------------------------------------------------------");
-                if (getLoaiNV(nvList[isInList(nvList, maNV)]) == 1) {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
-                            nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen,
-                            nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
-                            nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi,
-                            nvList[isInList(nvList, maNV)].chucVu, ((NHANVIENCHINH) nvList[isInList(nvList, maNV)]).getEmail(),
-                            nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
-                            nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
-                } else if (getLoaiNV(nvList[isInList(nvList, maNV)]) == -1) {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
-                            nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen,
-                            nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
-                            nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi,
-                            nvList[isInList(nvList, maNV)].chucVu, ((THUCTAPSINH) nvList[isInList(nvList, maNV)]).getEmail(),
-                            nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
-                            nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
-                } else {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
-                            nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen,
-                            nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
-                            nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi,
-                            nvList[isInList(nvList, maNV)].chucVu, ((NHANVIENPHU) nvList[isInList(nvList, maNV)]).getEmail(),
-                            nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
-                            nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
+                        "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+                for (int i = 0; i < nvList.length; ++i) {
+                    if (nvList[i] instanceof NHANVIENCHINH nhanvienchinh) {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
+                                nhanvienchinh.getEmail(), nhanvienchinh.getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    } else if (nvList[i] instanceof THUCTAPSINH thuctapsinh) {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
+                                thuctapsinh.getEmail(), thuctapsinh.getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    } else {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
+                                ((NHANVIENPHU) nvList[i]).getEmail(), ((NHANVIENPHU) nvList[i]).getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    }
                 }
-                System.out.println("---------------------------------------------------------------------------"
-                        + "------------------------------------------------------------------------------------"
-                        + "-----------------------------------------------------------------------------------");
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
                 // Ket thuc in thong tin hien tai
                 Main.editNhanVienMenu();
                 System.out.print("Moi nhap lua chon: ");
@@ -318,6 +369,29 @@ public class nhanvienManager {
                         }
                         break;
                     }
+                    case 8: {
+                        String maPhong;
+                        while (true) {
+                            phongbanManager.printMaAndTen(pbList);
+                            System.out.print("\nMoi nhap ma phong moi: ");
+                            maPhong = check.kiemTraMaPhongBan();
+                            if (phongbanManager.isInList(pbList, maPhong) != -1) {
+                                if (nvList[isInList(nvList, maNV)] instanceof NHANVIENCHINH nvc) {
+                                    nvc.setMaPhong(maPhong);
+                                    System.out.println("Da doi thanh cong.");
+                                } else if (nvList[isInList(nvList, maNV)] instanceof THUCTAPSINH tts) {
+                                    tts.setMaPhong(maPhong);
+                                    System.out.println("Da doi thanh cong.");
+                                } else {
+                                    System.out.println("Khong the doi ma phong cua nhan vien phu.");
+                                }
+                                break;
+                            } else {
+                                System.out.println("Khong ton tai ma phong.");
+                            }
+                        }
+                        break;
+                    }
                     default: {
                         System.out.println("Ban da nhap sai lua chon! Hay nhap dung");
                         break;
@@ -346,6 +420,30 @@ public class nhanvienManager {
             System.out.println("Ma nhan vien \"" + maNV + "\" khong ton tai!!!");
         } else {
             fnv.write(sortByMaNV());
+        }
+    }
+
+    public void deleteNVFromPhongBan(PHONGBAN[] pbList) {
+        System.out.print("Moi nhap ma phong: ");
+        String maPhong = check.kiemTraMaPhongBan();
+        if (phongbanManager.isInList(pbList, maPhong) != -1) {
+            System.out.print("Moi nhap ma nhan vien can xoa khoi phong ban: ");
+            String maNV = check.kiemTraMaNhanVien();
+            if (isInList(nvList, maNV) != -1) {
+                if (nvList[isInList(nvList, maNV)] instanceof NHANVIENCHINH nvc && nvc.getMaPhong().equals(maPhong)) {
+                    nvc.setMaPhong("None");
+                    System.out.println("Da xoa nhan vien khoi phong ban.");
+                } else if (nvList[isInList(nvList, maNV)] instanceof THUCTAPSINH tts && tts.getMaPhong().equals(maPhong)) {
+                    tts.setMaPhong("None");
+                    System.out.println("Da xoa nhan vien khoi phong ban.");
+                } else {
+                    System.out.println("Khong co nhan vien nay trong phong ban.");
+                }
+            } else {
+                System.out.println("Khong ton tai nhan vien trong danh sach.");
+            }
+        } else {
+            System.out.println("Khong ton tai phong ban.");
         }
     }
 
@@ -420,93 +518,447 @@ public class nhanvienManager {
         return null;
     }
 
-    public void printListALL() {
+    public void printListALL(PHONGBAN[] pbList) {
         if (isEmpty(nvList)) {
             System.out.println("Danh sach rong.");
         } else {
+            checkFirst(pbList);
             System.out.println("\n============== DANH SACH NHAN VIEN ==============");
-            System.out.println("---------------------------------------------------------------------------"
-                    + "------------------------------------------------------------------------------------"
-                    + "-----------------------------------------------------------------------------------");
-            System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s |\n",
+            System.out.println("+------------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------------------------------"
+                    + "--------------------------------------------------------------------------------------+");
+            System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
                     "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
-                    "Chuc vu", "Email", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
-            System.out.println("---------------------------------------------------------------------------"
-                    + "------------------------------------------------------------------------------------"
-                    + "-----------------------------------------------------------------------------------");
+                    "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+            System.out.println("+------------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------------------------------"
+                    + "--------------------------------------------------------------------------------------+");
             for (int i = 0; i < nvList.length; ++i) {
                 if (nvList[i] instanceof NHANVIENCHINH nhanvienchinh) {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
                             nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
-                            nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu, nhanvienchinh.getEmail(),
+                            nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
+                            nhanvienchinh.getEmail(), nhanvienchinh.getMaPhong(),
                             nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
                             nvList[i].getHopDong().getNgayKetThucHopDong().toString());
                 } else if (nvList[i] instanceof THUCTAPSINH thuctapsinh) {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
                             nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
-                            nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu, thuctapsinh.getEmail(),
+                            nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
+                            thuctapsinh.getEmail(), thuctapsinh.getMaPhong(),
                             nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
                             nvList[i].getHopDong().getNgayKetThucHopDong().toString());
                 } else {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
                             nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
-                            nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu, ((NHANVIENPHU) nvList[i]).getEmail(),
+                            nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
+                            ((NHANVIENPHU) nvList[i]).getEmail(), ((NHANVIENPHU) nvList[i]).getMaPhong(),
                             nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
                             nvList[i].getHopDong().getNgayKetThucHopDong().toString());
                 }
             }
-            System.out.println("---------------------------------------------------------------------------"
-                    + "------------------------------------------------------------------------------------"
-                    + "-----------------------------------------------------------------------------------");
+            System.out.println("+------------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------------------------------"
+                    + "--------------------------------------------------------------------------------------+");
         }
     }
 
-    public void printPersonalInfo() {
+    public void printPersonalInfo(PHONGBAN[] pbList) {
         if (isEmpty(nvList)) {
             System.out.println("Danh sach nhan vien rong.");
         } else {
+            checkFirst(pbList);
             System.out.print("Moi nhap ma nhan vien can xem thong tin: ");
             String maNV = check.kiemTraMaNhanVien();
             if (isInList(nvList, maNV) != -1) {
-                System.out.println("\n---------------------------------------------------------------------------"
-                        + "------------------------------------------------------------------------------------"
-                        + "-----------------------------------------------------------------------------------");
-                System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s |\n",
+                System.out.println("+\n------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+                System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
                         "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
-                        "Chuc vu", "Email", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
-                System.out.println("---------------------------------------------------------------------------"
-                        + "------------------------------------------------------------------------------------"
-                        + "-----------------------------------------------------------------------------------");
+                        "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
                 if (getLoaiNV(nvList[isInList(nvList, maNV)]) == 1) {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
                             nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen,
                             nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
                             nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi,
-                            nvList[isInList(nvList, maNV)].chucVu, ((NHANVIENCHINH) nvList[isInList(nvList, maNV)]).getEmail(),
+                            nvList[isInList(nvList, maNV)].chucVu,
+                            ((NHANVIENCHINH) nvList[isInList(nvList, maNV)]).getEmail(),
+                            ((NHANVIENCHINH) nvList[isInList(nvList, maNV)]).getMaPhong(),
                             nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
                             nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
                 } else if (getLoaiNV(nvList[isInList(nvList, maNV)]) == -1) {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
                             nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen,
                             nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
                             nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi,
-                            nvList[isInList(nvList, maNV)].chucVu, ((THUCTAPSINH) nvList[isInList(nvList, maNV)]).getEmail(),
+                            nvList[isInList(nvList, maNV)].chucVu,
+                            ((THUCTAPSINH) nvList[isInList(nvList, maNV)]).getEmail(),
+                            ((THUCTAPSINH) nvList[isInList(nvList, maNV)]).getMaPhong(),
                             nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
                             nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
                 } else {
-                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
                             nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen,
                             nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
                             nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi,
-                            nvList[isInList(nvList, maNV)].chucVu, ((NHANVIENPHU) nvList[isInList(nvList, maNV)]).getEmail(),
+                            nvList[isInList(nvList, maNV)].chucVu,
+                            ((NHANVIENPHU) nvList[isInList(nvList, maNV)]).getEmail(),
+                            ((NHANVIENPHU) nvList[isInList(nvList, maNV)]).getMaPhong(),
                             nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
                             nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
                 }
-                System.out.println("---------------------------------------------------------------------------"
-                        + "------------------------------------------------------------------------------------"
-                        + "-----------------------------------------------------------------------------------");
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
             } else {
                 System.out.println("Khong co nhan vien trong danh sach.");
+            }
+        }
+    }
+
+    public static void printPersonalInfo(NHANVIEN[] list, String maNV) {
+        if (list[isInList(list, maNV)] instanceof NHANVIENCHINH nvc) {
+            System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                    list[isInList(list, maNV)].maNhanVien, list[isInList(list, maNV)].hoTen,
+                    list[isInList(list, maNV)].gioiTinh, list[isInList(list, maNV)].ngaySinh,
+                    list[isInList(list, maNV)].soDienThoai, list[isInList(list, maNV)].diaChi,
+                    list[isInList(list, maNV)].chucVu,
+                    nvc.getEmail(), nvc.getMaPhong(),
+                    list[isInList(list, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
+                    list[isInList(list, maNV)].getHopDong().getNgayKetThucHopDong().toString());
+        } else if (list[isInList(list, maNV)] instanceof THUCTAPSINH tts) {
+            System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                    list[isInList(list, maNV)].maNhanVien, list[isInList(list, maNV)].hoTen,
+                    list[isInList(list, maNV)].gioiTinh, list[isInList(list, maNV)].ngaySinh,
+                    list[isInList(list, maNV)].soDienThoai, list[isInList(list, maNV)].diaChi,
+                    list[isInList(list, maNV)].chucVu,
+                    tts.getEmail(), tts.getMaPhong(),
+                    list[isInList(list, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
+                    list[isInList(list, maNV)].getHopDong().getNgayKetThucHopDong().toString());
+        } else {
+            System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                    list[isInList(list, maNV)].maNhanVien, list[isInList(list, maNV)].hoTen,
+                    list[isInList(list, maNV)].gioiTinh, list[isInList(list, maNV)].ngaySinh,
+                    list[isInList(list, maNV)].soDienThoai, list[isInList(list, maNV)].diaChi,
+                    list[isInList(list, maNV)].chucVu,
+                    ((NHANVIENPHU) list[isInList(list, maNV)]).getEmail(),
+                    ((NHANVIENPHU) list[isInList(list, maNV)]).getMaPhong(),
+                    list[isInList(list, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
+                    list[isInList(list, maNV)].getHopDong().getNgayKetThucHopDong().toString());
+        }
+    }
+
+    public void printNVByName(PHONGBAN[] pbList) {
+        if (isEmpty(nvList)) {
+            System.out.println("Khong co nhan vien nao trong danh sach.");
+        } else {
+            checkFirst(pbList);
+            System.out.print("Moi nhap ho va ten nhan vien: ");
+            String name = check.kiemTraHoTen();
+            int count = -1;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nvList[i].getHoTen().equals(name)) {
+                    ++count;
+                    if (count == 0) {
+                        System.out.println("+\n------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
+                                "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
+                                "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                    }
+                    if (getLoaiNV(nvList[i]) == 1) {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen,
+                                nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi,
+                                nvList[i].chucVu, ((NHANVIENCHINH) nvList[i]).getEmail(),
+                                nvList[i].chucVu, ((NHANVIENCHINH) nvList[i]).getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    } else if (getLoaiNV(nvList[i]) == -1) {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen,
+                                nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi,
+                                nvList[i].chucVu, ((THUCTAPSINH) nvList[i]).getEmail(),
+                                nvList[i].chucVu, ((THUCTAPSINH) nvList[i]).getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    } else {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen,
+                                nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi,
+                                nvList[i].chucVu, ((NHANVIENPHU) nvList[i]).getEmail(),
+                                nvList[i].chucVu, ((NHANVIENPHU) nvList[i]).getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    }
+                }
+            }
+            if (count != -1) {
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+            } else {
+                System.out.println("Khong co nhan vien nao co ten \"" + name + "\" trong danh sach.");
+            }
+        }
+    }
+
+    public void printNVByGender(PHONGBAN[] pbList) {
+        if (isEmpty(nvList)) {
+            System.out.println("Khong co nhan vien nao trong danh sach.");
+        } else {
+            checkFirst(pbList);
+            System.out.print("Moi nhap gioi tinh (Nam | Nu): ");
+            String gender = check.kiemTraGioiTinh();
+            int count = -1;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nvList[i].getGioiTinh().equals(gender)) {
+                    ++count;
+                    if (count == 0) {
+                        System.out.println("+\n------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
+                                "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
+                                "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                    }
+                    if (getLoaiNV(nvList[i]) == 1) {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen,
+                                nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi,
+                                nvList[i].chucVu, ((NHANVIENCHINH) nvList[i]).getEmail(),
+                                nvList[i].chucVu, ((NHANVIENCHINH) nvList[i]).getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    } else if (getLoaiNV(nvList[i]) == -1) {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen,
+                                nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi,
+                                nvList[i].chucVu, ((THUCTAPSINH) nvList[i]).getEmail(),
+                                nvList[i].chucVu, ((THUCTAPSINH) nvList[i]).getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    } else {
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                                nvList[i].maNhanVien, nvList[i].hoTen,
+                                nvList[i].gioiTinh, nvList[i].ngaySinh,
+                                nvList[i].soDienThoai, nvList[i].diaChi,
+                                nvList[i].chucVu, ((NHANVIENPHU) nvList[i]).getEmail(),
+                                nvList[i].chucVu, ((NHANVIENPHU) nvList[i]).getMaPhong(),
+                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                    }
+                }
+            }
+            if (count != -1) {
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+            } else {
+                System.out.println("Khong co nhan vien nao co gioi tinh \"" + gender + "\" trong danh sach.");
+            }
+        }
+    }
+
+    public void printNVChinhList(PHONGBAN[] pbList) {
+        if (isEmpty(nvList)) {
+            System.out.println("Khong co nhan vien nao trong danh sach.");
+        } else {
+            checkFirst(pbList);
+            int count = -1;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nvList[i] instanceof NHANVIENCHINH) {
+                    ++count;
+                    if (count == 0) {
+                        System.out.println("\n========== DANH SACH NHAN VIEN CHINH ==========");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
+                                "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
+                                "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                    }
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                            nvList[i].maNhanVien, nvList[i].hoTen,
+                            nvList[i].gioiTinh, nvList[i].ngaySinh,
+                            nvList[i].soDienThoai, nvList[i].diaChi,
+                            nvList[i].chucVu, ((NHANVIENCHINH) nvList[i]).getEmail(),
+                            nvList[i].chucVu, ((NHANVIENCHINH) nvList[i]).getMaPhong(),
+                            nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                            nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                }
+            }
+            if (count != -1) {
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+            } else {
+                System.out.println("Khong co nhan vien chinh nao trong danh sach.");
+            }
+        }
+    }
+
+    public void printNVPhuList(PHONGBAN[] pbList) {
+        if (isEmpty(nvList)) {
+            System.out.println("Khong co nhan vien nao trong danh sach.");
+        } else {
+            checkFirst(pbList);
+            int count = -1;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nvList[i] instanceof NHANVIENPHU) {
+                    ++count;
+                    if (count == 0) {
+                        System.out.println("\n========== DANH SACH NHAN VIEN PHU ==========");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
+                                "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
+                                "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                    }
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                            nvList[i].maNhanVien, nvList[i].hoTen,
+                            nvList[i].gioiTinh, nvList[i].ngaySinh,
+                            nvList[i].soDienThoai, nvList[i].diaChi,
+                            nvList[i].chucVu, ((NHANVIENPHU) nvList[i]).getEmail(),
+                            nvList[i].chucVu, ((NHANVIENPHU) nvList[i]).getMaPhong(),
+                            nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                            nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                }
+            }
+            if (count != -1) {
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+            } else {
+                System.out.println("Khong co nhan vien phu nao trong danh sach.");
+            }
+        }
+    }
+
+    public void printThucTapSinhList(PHONGBAN[] pbList) {
+        if (isEmpty(nvList)) {
+            System.out.println("Khong co nhan vien nao trong danh sach.");
+        } else {
+            checkFirst(pbList);
+            int count = -1;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nvList[i] instanceof THUCTAPSINH) {
+                    ++count;
+                    if (count == 0) {
+                        System.out.println("\n========== DANH SACH THUC TAP SINH ==========");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
+                                "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
+                                "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                    }
+                    System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
+                            nvList[i].maNhanVien, nvList[i].hoTen,
+                            nvList[i].gioiTinh, nvList[i].ngaySinh,
+                            nvList[i].soDienThoai, nvList[i].diaChi,
+                            nvList[i].chucVu, ((THUCTAPSINH) nvList[i]).getEmail(),
+                            nvList[i].chucVu, ((THUCTAPSINH) nvList[i]).getMaPhong(),
+                            nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
+                            nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                }
+            }
+            if (count != -1) {
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+            } else {
+                System.out.println("Khong co thuc tap sinh nao trong danh sach.");
+            }
+        }
+    }
+
+    public void printNVKhongCoPhongBan() {
+        if (isEmpty(nvList)) {
+            System.out.println("Khong ton tai nhan vien nao trong danh sach nhan vien.");
+        } else {
+            int count = -1;
+            for (int i = 0; i < nvList.length; ++i) {
+                if (nvList[i] instanceof NHANVIENCHINH nvc) {
+                    if (nvc.getMaPhong().equals("None")) {
+                        ++count;
+                        if (count == 0) {
+                            System.out.println("\n+------------------------------------------------------------------------------"
+                                    + "----------------------------------------------------------------------------------------"
+                                    + "--------------------------------------------------------------------------------------+");
+                            System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
+                                    "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
+                                    "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                            System.out.println("+------------------------------------------------------------------------------"
+                                    + "----------------------------------------------------------------------------------------"
+                                    + "--------------------------------------------------------------------------------------+");
+                        }
+                        nhanvienManager.printPersonalInfo(nvList, nvc.getMaNhanVien());
+                    }
+                } else if (nvList[i] instanceof THUCTAPSINH tts) {
+                    if (tts.getMaPhong().equals("None")) {
+                        ++count;
+                        if (count == 0) {
+                            System.out.println("\n+------------------------------------------------------------------------------"
+                                    + "----------------------------------------------------------------------------------------"
+                                    + "--------------------------------------------------------------------------------------+");
+                            System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
+                                    "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
+                                    "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                            System.out.println("+------------------------------------------------------------------------------"
+                                    + "----------------------------------------------------------------------------------------"
+                                    + "--------------------------------------------------------------------------------------+");
+                        }
+                        nhanvienManager.printPersonalInfo(nvList, tts.getMaNhanVien());
+                    }
+                } else {
+                    ++count;
+                    if (count == 0) {
+                        System.out.println("\n+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                        System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
+                                "Ma nhan vien", "Ho va ten", "Gioi tinh", "Ngay sinh", "So dien thoai", "Dia chi",
+                                "Chuc vu", "Email", "Phong ban", "Ngay bat dau hop dong", "Ngay ket thuc hop dong");
+                        System.out.println("+------------------------------------------------------------------------------"
+                                + "----------------------------------------------------------------------------------------"
+                                + "--------------------------------------------------------------------------------------+");
+                    }
+                    nhanvienManager.printPersonalInfo(nvList, nvList[i].getMaNhanVien());
+                }
+            }
+            if (count != -1) {
+                System.out.println("+------------------------------------------------------------------------------"
+                        + "----------------------------------------------------------------------------------------"
+                        + "--------------------------------------------------------------------------------------+");
+            } else {
+                System.out.println("Khong co truong phong nao trong danh sach.");
             }
         }
     }
@@ -561,4 +1013,18 @@ public class nhanvienManager {
         return count;
     }
 
+    public void checkFirst(PHONGBAN[] pbList) {
+        for (int i = 0; i < nvList.length; ++i) {
+            if (nvList[i] instanceof NHANVIENCHINH nvc) {
+                if (phongbanManager.isInList(pbList, nvc.getMaPhong()) == -1) {
+                    nvc.setMaPhong("None");
+                }
+            } else if (nvList[i] instanceof THUCTAPSINH tts) {
+                if (phongbanManager.isInList(pbList, tts.getMaPhong()) == -1) {
+                    tts.setMaPhong("None");
+                }
+            }
+        }
+        fnv.write(sortByMaNV());
+    }
 }

@@ -3,6 +3,7 @@ package quanlynhansu;
 public class NHANVIENPHU extends NHANVIEN {
 
     private final String email = "None";
+    private final String maPhong = "None";
     
     public NHANVIENPHU() {
         super();
@@ -15,6 +16,10 @@ public class NHANVIENPHU extends NHANVIEN {
 
     public String getEmail() {
         return email;
+    }   
+
+    public String getMaPhong() {
+        return maPhong;
     }
     
     @Override

@@ -11,7 +11,7 @@ public abstract class NHANVIEN implements Serializable, NhapXuat {
     protected String gioiTinh;
     protected String soDienThoai;
     protected DIACHI diaChi;
-    protected String chucVu;
+    protected String chucVu;    
     protected HOPDONG hopDong;
     
     private static int soLuongNhanVien = 0;
