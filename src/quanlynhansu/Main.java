@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static Scanner scan = new Scanner(System.in);
+    public static Scanner scan = new Scanner(System.in);    
 
     public static void main(String[] args) {
         mainMenuChoice();
@@ -107,35 +107,55 @@ public class Main {
                     System.out.println("          #================================#\n");
                     exit = true;
                     break;
-                } 
+                }
                 case 1: {
-                    nvManager.add(pbManager.getPbList());
+                    // Nhan vien
+                    boolean flag = false;
+                    while (flag == false) {
+                        nhanVienMenu();
+                        System.out.print("Moi lua chon: ");
+                        int input = kiemTraChoice();
+                        switch (input) {
+                            case 0:
+                                System.out.println("Ban da thoat khoi chuc nang quan ly nhan vien.\n");
+                                flag = true;
+                                break;
+                            case 1: {
+                                nvManager.add(pbManager.getPbList());
+                                break;
+                            }
+                            case 2: {
+                                nvManager.edit(pbManager.getPbList());
+                                break;
+                            }
+                            case 3: {
+                                nvManager.delete();
+                                break;
+                            }
+                            case 4: {
+                                nvManager.printListALL(pbManager.getPbList());
+                                break;
+                            }
+                            case 5: {
+                                nvManager.printPersonalInfo(pbManager.getPbList());
+                                break;
+                            }
+                            default: {
+                                System.out.println("Nhap sai lua chon.");
+                                break;
+                            }
+                        }
+                    }
                     break;
                 }
                 case 2: {
-                    nvManager.edit(pbManager.getPbList());
-                    break;
-                }
-                case 3: {
-                    nvManager.delete();
-                    break;
-                }
-                case 4: {
-                    nvManager.printListALL(pbManager.getPbList());
-                    break;
-                }
-                case 5: {
-                    nvManager.printPersonalInfo(pbManager.getPbList());
-                    break;
-                }
-                case 6: {
                     // Than nhan
                     boolean flag = false;
                     while (flag == false) {
                         thanNhanMenu();
                         System.out.print("Moi lua chon: ");
-                        int input1 = kiemTraChoice();
-                        switch (input1) {
+                        int input = kiemTraChoice();
+                        switch (input) {
                             case 0:
                                 System.out.println("Ban da thoat khoi chuc nang quan ly than nhan.\n");
                                 flag = true;
@@ -168,7 +188,7 @@ public class Main {
                     }
                     break;
                 }
-                case 7: {
+                case 3: {
                     // Cham cong
                     int input;
                     boolean flag = false;
@@ -214,7 +234,7 @@ public class Main {
                     }
                     break;
                 }
-                case 8: {
+                case 4: {
                     // Tinh luong
                     int input;
                     boolean flag = false;
@@ -260,7 +280,7 @@ public class Main {
                     }
                     break;
                 }
-                case 9: {
+                case 5: {
                     // Phong ban
                     int input;
                     boolean flag = false;
@@ -303,7 +323,7 @@ public class Main {
                                 break;
                             }
                             case 8: {
-                                pbManager.printList(); 
+                                pbManager.printList();
                                 break;
                             }
                             case 9: {
@@ -314,7 +334,7 @@ public class Main {
                                 nvManager.printNVKhongCoPhongBan();
                                 break;
                             }
-                            case 11: {                                
+                            case 11: {
                                 pbManager.printTruongPhongInfo(nvManager.getNhanVienList());
                                 break;
                             }
@@ -326,7 +346,11 @@ public class Main {
                     }
                     break;
                 }
-                case 11: {
+                case 6: {
+                    break;
+                }
+                case 7: {
+                    // Cac chuc nang khac
                     int input;
                     boolean flag = false;
                     while (!flag) {
@@ -411,18 +435,26 @@ public class Main {
     public static void menu() {
         System.out.println();
         System.out.println("##==================== MENU CHINH ====================##");
-        System.out.println("||  Nhap 1 de them nhan vien.                         ||");
-        System.out.println("||  Nhap 2 de sua thong tin nhan vien.                ||");
-        System.out.println("||  Nhap 3 de xoa nhan vien.                          ||");
-        System.out.println("||  Nhap 4 de xem thong tin toan bo nhan vien.        ||");
-        System.out.println("||  Nhap 5 de xem thong tin cua mot nhan vien.        ||");
-        System.out.println("||  Nhap 6 de quan ly than nhan.                      ||");
-        System.out.println("||  Nhap 7 de quan ly cham cong.                      ||");
-        System.out.println("||  Nhap 8 de quan ly tinh luong.                     ||");
-        System.out.println("||  Nhap 9 de quan ly phong ban.                      ||");
-        System.out.println("||  Nhap 11 de xem nhung chuc nang khac.              ||");
+        System.out.println("||  Nhap 1 de quan ly nhan vien.                      ||");
+        System.out.println("||  Nhap 2 de quan ly than nhan.                      ||");
+        System.out.println("||  Nhap 3 de quan ly cham cong.                      ||");
+        System.out.println("||  Nhap 4 de quan ly tinh luong.                     ||");
+        System.out.println("||  Nhap 5 de quan ly phong ban.                      ||");
+        System.out.println("||  Nhap 7 de xem nhung chuc nang khac.               ||");
         System.out.println("||  Nhap 0 de thoat.                                  ||");
         System.out.println("##====================================================##");
+    }
+
+    public static void nhanVienMenu() {
+        System.out.println();
+        System.out.println("#---------------- MENU NHAN VIEN ----------------#");
+        System.out.println("|   Nhap 1 de them nhan vien.                    |");
+        System.out.println("|   Nhap 2 de sua thong tin nhan vien.           |");
+        System.out.println("|   Nhap 3 de xoa nhan vien.                     |");
+        System.out.println("|   Nhap 4 de xem danh sach nhan vien.           |");
+        System.out.println("|   Nhap 5 de xem thong tin cua mot nhan vien.   |");
+        System.out.println("|   Nhap 0 de thoat.                             |");
+        System.out.println("#------------------------------------------------#");
     }
 
     public static void editNhanVienMenu() {

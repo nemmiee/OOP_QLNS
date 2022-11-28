@@ -269,30 +269,28 @@ public class nhanvienManager {
                 System.out.println("+------------------------------------------------------------------------------"
                         + "----------------------------------------------------------------------------------------"
                         + "--------------------------------------------------------------------------------------+");
-                for (int i = 0; i < nvList.length; ++i) {
-                    if (nvList[i] instanceof NHANVIENCHINH nhanvienchinh) {
+                    if (nvList[isInList(nvList, maNV)] instanceof NHANVIENCHINH nhanvienchinh) {
                         System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s  |\n",
-                                nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
-                                nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
+                                nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen, nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
+                                nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi, nvList[isInList(nvList, maNV)].chucVu,
                                 nhanvienchinh.getEmail(), nhanvienchinh.getMaPhong(),
-                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
-                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
-                    } else if (nvList[i] instanceof THUCTAPSINH thuctapsinh) {
+                                nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
+                    } else if (nvList[isInList(nvList, maNV)] instanceof THUCTAPSINH thuctapsinh) {
                         System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
-                                nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
-                                nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
+                                nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen, nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
+                                nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi, nvList[isInList(nvList, maNV)].chucVu,
                                 thuctapsinh.getEmail(), thuctapsinh.getMaPhong(),
-                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
-                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                                nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
                     } else {
                         System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-21s | %-21s  |\n",
-                                nvList[i].maNhanVien, nvList[i].hoTen, nvList[i].gioiTinh, nvList[i].ngaySinh,
-                                nvList[i].soDienThoai, nvList[i].diaChi, nvList[i].chucVu,
-                                ((NHANVIENPHU) nvList[i]).getEmail(), ((NHANVIENPHU) nvList[i]).getMaPhong(),
-                                nvList[i].getHopDong().getNgayBatDauHopDong().toString(),
-                                nvList[i].getHopDong().getNgayKetThucHopDong().toString());
+                                nvList[isInList(nvList, maNV)].maNhanVien, nvList[isInList(nvList, maNV)].hoTen, nvList[isInList(nvList, maNV)].gioiTinh, nvList[isInList(nvList, maNV)].ngaySinh,
+                                nvList[isInList(nvList, maNV)].soDienThoai, nvList[isInList(nvList, maNV)].diaChi, nvList[isInList(nvList, maNV)].chucVu,
+                                ((NHANVIENPHU) nvList[isInList(nvList, maNV)]).getEmail(), ((NHANVIENPHU) nvList[isInList(nvList, maNV)]).getMaPhong(),
+                                nvList[isInList(nvList, maNV)].getHopDong().getNgayBatDauHopDong().toString(),
+                                nvList[isInList(nvList, maNV)].getHopDong().getNgayKetThucHopDong().toString());
                     }
-                }
                 System.out.println("+------------------------------------------------------------------------------"
                         + "----------------------------------------------------------------------------------------"
                         + "--------------------------------------------------------------------------------------+");
@@ -571,7 +569,7 @@ public class nhanvienManager {
             System.out.print("Moi nhap ma nhan vien can xem thong tin: ");
             String maNV = check.kiemTraMaNhanVien();
             if (isInList(nvList, maNV) != -1) {
-                System.out.println("+\n------------------------------------------------------------------------------"
+                System.out.println("\n+------------------------------------------------------------------------------"
                         + "----------------------------------------------------------------------------------------"
                         + "--------------------------------------------------------------------------------------+");
                 System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
@@ -664,7 +662,7 @@ public class nhanvienManager {
                 if (nvList[i].getHoTen().equals(name)) {
                     ++count;
                     if (count == 0) {
-                        System.out.println("+\n------------------------------------------------------------------------------"
+                        System.out.println("\n+------------------------------------------------------------------------------"
                                 + "----------------------------------------------------------------------------------------"
                                 + "--------------------------------------------------------------------------------------+");
                         System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",
@@ -726,7 +724,7 @@ public class nhanvienManager {
                 if (nvList[i].getGioiTinh().equals(gender)) {
                     ++count;
                     if (count == 0) {
-                        System.out.println("+\n------------------------------------------------------------------------------"
+                        System.out.println("\n+------------------------------------------------------------------------------"
                                 + "----------------------------------------------------------------------------------------"
                                 + "--------------------------------------------------------------------------------------+");
                         System.out.printf("| %-12s | %-30s | %-9s | %-10s | %-13s | %-40s | %-20s| %-35s | %-9s | %-21s | %-21s |\n",

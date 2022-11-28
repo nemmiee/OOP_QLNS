@@ -363,22 +363,23 @@ public class luongManager {
                 luongList = sortByMaNV();
                 System.out.println("\n============== BANG LUONG " + thang + "/" + nam + " ==============");
                 System.out.println("+-------------------------------------------------------------------------"
-                        + "---------------------------------------------------------------------------+");
-                System.out.printf("| %-12s | %-30s | %-20s | %-12s | %-10s | %-17s | %-26s |\n", "Ma nhan vien",
+                        + "-----------------------------------------------------------------------------+");
+                System.out.printf("| %-12s | %-30s | %-20s | %14s | %-10s | %-17s | %-26s |\n", "Ma nhan vien",
                         "Ho ten nhan vien", "Chuc vu", "Luong co ban", "He so luong", "Tong so ngay cong", "Luong thang (Don vi: dong)");
                 System.out.println("+------------------------------------------------------------------------"
-                        + "----------------------------------------------------------------------------+");
+                        + "------------------------------------------------------------------------------+");
                 for (int i = 0; i < luongList.length; ++i) {
                     if (luongList[i].getThang() == thang && luongList[i].getNam() == nam) {
-                        System.out.printf("| %-12s | %-30s | %-20s | %12s | %11s | %17s | %26s |\n",
+                        System.out.printf("| %-12s | %-30s | %-20s | %14s | %11s | %17s | %26s |\n",
                                 luongList[i].getMaNV(), nhanvienManager.getNhanVien(nvList, luongList[i].getMaNV()).getHoTen(),
-                                nhanvienManager.getNhanVien(nvList, luongList[i].getMaNV()).getChucVu(), luongList[i].getLuongCoBan(),
-                                luongList[i].getHeSoLuong(), chamcongManager.getChamCong(ccList, luongList[i].getMaNV(), thang, nam).tongNgayCong(),
-                                luongList[i].getLuong());
+                                nhanvienManager.getNhanVien(nvList, luongList[i].getMaNV()).getChucVu(), 
+                                check.changeMoney(luongList[i].getLuongCoBan()), luongList[i].getHeSoLuong(), 
+                                chamcongManager.getChamCong(ccList, luongList[i].getMaNV(), thang, nam).tongNgayCong(),
+                                check.changeMoney(luongList[i].getLuong()));
                     }
                 }
                 System.out.println("+----------------------------------------------------------------------"
-                        + "------------------------------------------------------------------------------+");
+                        + "--------------------------------------------------------------------------------+");
             } else {
                 System.out.println("Khong ton tai bang luong " + thang + "/" + nam);
             }
@@ -408,18 +409,19 @@ public class luongManager {
                             System.out.println("\n| Ma nhan vien: " + list[i].getMaNV() + " | Ho va ten: "
                                     + nvList[nhanvienManager.isInList(nvList, maNV)].hoTen + " | Chuc vu: "
                                     + nvList[nhanvienManager.isInList(nvList, maNV)].getChucVu() + " |");
-                            System.out.println("+-----------------------------------------------------------------------------------------+");
-                            System.out.printf("| %-9s | %-12s | %-10s | %-17s | %-26s |\n", "Thang/Nam", "Luong co ban", "He so luong",
+                            System.out.println("+-------------------------------------------------------------------------------------------+");
+                            System.out.printf("| %-9s | %14s | %-10s | %-17s | %-26s |\n", "Thang/Nam", "Luong co ban", "He so luong",
                                     "Tong so ngay cong", "Luong thang (Don vi: dong)");
-                            System.out.println("+-----------------------------------------------------------------------------------------+");
+                            System.out.println("+-------------------------------------------------------------------------------------------+");
                         }
-                        System.out.printf("| %2d/%-6d | %12s | %10s | %17s  | %26s |\n", list[i].getThang(), list[i].getNam(),
-                                list[i].getLuongCoBan(), list[i].getHeSoLuong(),
-                                chamcongManager.getChamCong(ccList, list[i].getMaNV(), list[i].getThang(), list[i].getNam()).tongNgayCong(), list[i].getLuong());
+                        System.out.printf("| %2d/%-6d | %14s | %11s | %17s | %26s |\n", list[i].getThang(),
+                                list[i].getNam(), check.changeMoney(list[i].getLuongCoBan()),
+                                list[i].getHeSoLuong(), chamcongManager.getChamCong(ccList, list[i].getMaNV(),
+                                list[i].getThang(), list[i].getNam()).tongNgayCong(), check.changeMoney(list[i].getLuong()));
                     }
                 }
                 if (count != 0) {
-                    System.out.println("+-----------------------------------------------------------------------------------------+");
+                    System.out.println("+-------------------------------------------------------------------------------------------+");
                 } else {
                     System.out.println("Khong co nhan vien trong bang luong");
                 }
@@ -428,7 +430,7 @@ public class luongManager {
             }
         }
     }
-    
+
     public LUONG[] checkFirst(CHAMCONG[] ccList) {
         for (int i = 0; i < luongList.length; ++i) {
             if (chamcongManager.getChamCong(ccList, luongList[i].getMaNV(), luongList[i].getThang(), luongList[i].getNam()) == null) {
@@ -437,7 +439,7 @@ public class luongManager {
         }
         return luongList;
     }
-    
+
     public void checkFirst(NHANVIEN[] nvList) {
         boolean flag = false;
         for (int i = 0; i < luongList.length; i++) {

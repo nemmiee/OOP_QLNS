@@ -309,4 +309,28 @@ public class CHECK implements Serializable {
         }
     }
     
+    public String changeMoney(Long moneyIn) {
+        char[] moneyArr = moneyIn.toString().toCharArray();
+        int count = 0;
+        String temp = "";
+        // Them dau phay vao chuoi so
+        for (int i = moneyArr.length - 1; i >= 0; i--) {
+            ++count;
+            if (count % 3 == 0 && i > 0) {
+                temp += moneyArr[i];
+                temp += ",";
+                continue;
+            }
+            temp += moneyArr[i];
+        }
+        // Dao nguoc chuoi
+        String moneyOut = "";
+        count = 0;
+        moneyArr = temp.toCharArray();
+        for (int i = moneyArr.length - 1; i >= 0; --i) {
+            moneyOut += moneyArr[i];
+            count++;
+        }
+        return moneyOut;
+    }
 }

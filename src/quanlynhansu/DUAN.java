@@ -4,72 +4,22 @@ public class DUAN {
 
     private String tenDuAn;
     private String maDuAn;
-    private String maPhongBanThucHienDuAn;
+    private String maTruongDuAn;
+    private long kinhPhi;
+    private String kieuDuAn;
     private NGAY ngayBatDauDuAn;
     private NGAY ngayKetThucDuAn;
+    private NHANVIEN[] nvDuAnList;
     
     CHECK check = new CHECK();
 
-    public DUAN(String tenDuAn, String maDuAn, long kinhPhiThucHien, String maPhongBanThucHienDuAn, NGAY ngayBatDauDuAn, NGAY ngayKetThucDuAn) {
-        this.tenDuAn = tenDuAn;
-        this.maDuAn = maDuAn;
-        this.maPhongBanThucHienDuAn = maPhongBanThucHienDuAn;
-        this.ngayBatDauDuAn = ngayBatDauDuAn;
-        this.ngayKetThucDuAn = ngayKetThucDuAn;
-    }
 
-    public DUAN() {
-        ngayBatDauDuAn = new NGAY();
-        ngayKetThucDuAn = new NGAY();
-    }
-
-    public String getTenDuAn() {
-        return tenDuAn;
-    }
-
-    public void setTenDuAn(String tenDuAn) {
-        this.tenDuAn = tenDuAn;
-    }
-
-    public String getMaDuAn() {
-        return maDuAn;
-    }
-
-    public void setMaDuAn(String maDuAn) {
-        this.maDuAn = maDuAn;
-    }
-
-    public String getPhongBanThucHienDuAn() {
-        return maPhongBanThucHienDuAn;
-    }
-
-    public void setPhongBanThucHienDuAn(String phongBanThucHienDuAn) {
-        this.maPhongBanThucHienDuAn = phongBanThucHienDuAn;
-    }
-
-    public NGAY getNgayBatDauDuAn() {
-        return ngayBatDauDuAn;
-    }
-
-    public void setNgayBatDauDuAn(NGAY ngayBatDauDuAn) {
-        this.ngayBatDauDuAn = ngayBatDauDuAn;
-    }
-
-    public NGAY getNgayKetThucDuAn() {
-        return ngayKetThucDuAn;
-    }
-
-    public void setNgayKetThucDuAn(NGAY ngayKetThucDuAn) {
-        this.ngayKetThucDuAn = ngayKetThucDuAn;
-    }
-
-    public void nhapDuAn() {
+    public void nhap() {
         System.out.print("Ten du an -> ");
         this.tenDuAn = check.kiemTraChuoiKyTu();
         System.out.print("Ma du an -> ");
         this.maDuAn = Main.inHoaTatCaKyTu(check.kiemTraChuoiKyTu());
-        System.out.print("Ma phong ban thuc hien du an -> ");
-        this.maPhongBanThucHienDuAn = check.kiemTraMaPhongBan();
+        
         System.out.println("Ngay bat dau du an: ");
         NGAY start = new NGAY();
         start.nhapNgay();
@@ -87,11 +37,6 @@ public class DUAN {
         this.ngayKetThucDuAn = end;
     }
 
-    public void xuatDuAn() {
-        System.out.println("Ten du an: " + this.tenDuAn);
-        System.out.println("Ma du an: " + this.maDuAn);
-        System.out.println("Ma phong ban thuc hien du an: " + this.maPhongBanThucHienDuAn);
-        System.out.println("Ngay bat dau du an: " + this.ngayBatDauDuAn);
-        System.out.println("Ngay ket thuc du an: " + this.ngayKetThucDuAn);
+    public void xuat() {
     }
 }
