@@ -53,7 +53,7 @@ public class NGAY implements Serializable {
         }
     }
 
-    public void nhapNgay() {
+    public void nhap() {
         while (true) {
             try {
                 System.out.print("\tNgay -> ");

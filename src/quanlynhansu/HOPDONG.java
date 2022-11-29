@@ -40,16 +40,16 @@ public class HOPDONG implements Serializable, NhapXuat {
     public void nhap() {
         System.out.println("Ngay bat dau hop dong: ");
         NGAY start = new NGAY();
-        start.nhapNgay();
+        start.nhap();
         System.out.println("Ngay ket thuc hop dong: ");
         NGAY end = new NGAY();
-        end.nhapNgay();
+        end.nhap();
         while (!check.kiemTraStartEndDay(start, end)) {
             System.out.println("Ngay ket thuc phai sau ngay bat dau! Moi nhap lai:");
             System.out.println("Ngay bat dau hop dong: ");
-            start.nhapNgay();
+            start.nhap();
             System.out.println("Ngay ket thuc hop dong: ");
-            end.nhapNgay();
+            end.nhap();
         }
         ngayBatDauHopDong = start;
         ngayKetThucHopDong = end;

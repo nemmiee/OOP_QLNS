@@ -216,7 +216,7 @@ public class thannhanManager {
                             }
                             case 3: {
                                 NGAY newBirthDay = new NGAY();
-                                newBirthDay.nhapNgay();
+                                newBirthDay.nhap();
                                 if (tnList[isInList(tnList, maNV, name)].getNgaySinhThanNhan().equals(newBirthDay)) {
                                     System.out.println("Trung voi ngay sinh cu.");
                                 } else {

@@ -86,7 +86,7 @@ public class phongbanManager {
         }
     }
 
-    public void add(NHANVIEN[] nvList) {
+    public void add() {
         String choice = "Y";
         while (choice.equals("Y")) {
             System.out.print("Moi nhap ma phong ban: ");

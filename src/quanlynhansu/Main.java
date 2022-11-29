@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static Scanner scan = new Scanner(System.in);    
+    public static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
         mainMenuChoice();
@@ -37,7 +37,8 @@ public class Main {
         return s.trim();
     }
 
-    public static String inHoaChuCaiDauTienCuaChuoi(String s) {
+    // In hoa duy nhất chữ cái đầu tiên, các chữ còn lại đều in thường
+    public static String inHoaDuyNhatChuCaiDauTien(String s) {
         s = s.trim();
         String firstLetter = s.substring(0, 1);
         firstLetter = firstLetter.toUpperCase();
@@ -52,6 +53,17 @@ public class Main {
         s = firstLetter + remainingLetter;
         return s;
     }
+    
+    
+    // In hoa chữ cái đầu tiên, các chữ còn lại giữ nguyên như cũ
+    public static String inHoaChuCaiDauTienCuaChuoi(String s) {
+        s = s.trim();
+        String firstLetter = s.substring(0, 1);
+        firstLetter = firstLetter.toUpperCase();
+        String remainingLetter = s.substring(1, s.length());
+        s = firstLetter + remainingLetter;
+        return s;
+    }    
 
     public static String inHoaTatCaKyTu(String s) {
         s = s.trim();
@@ -87,6 +99,7 @@ public class Main {
         chamcongManager ccManager = new chamcongManager();
         luongManager luongManager = new luongManager();
         phongbanManager pbManager = new phongbanManager();
+        duanManager daManager = new duanManager();
         menu();
         int choice = 0;
         boolean exit = false;
@@ -295,7 +308,7 @@ public class Main {
                                 break;
                             }
                             case 1: {
-                                pbManager.add(nvManager.getNhanVienList());
+                                pbManager.add();
                                 break;
                             }
                             case 2: {
@@ -347,6 +360,68 @@ public class Main {
                     break;
                 }
                 case 6: {
+                    // Du an
+                    int input;
+                    boolean flag = false;
+                    while (flag == false) {
+                        duAnMenu();
+                        System.out.print("Moi lua chon: ");
+                        input = kiemTraChoice();
+                        switch (input) {
+                            case 0: {
+                                System.out.println("Ban da thoat khoi quan ly du an.");
+                                flag = true;
+                                break;
+                            }
+                            case 1: {
+                                daManager.add();
+                                break;
+                            }
+                            case 2: {
+                                // Them nhan vien vao du an
+                                daManager.addNVToDuAn(nvManager.getNhanVienList());
+                                break;
+                            }
+                            case 3: {
+                                daManager.delete();
+                                break;
+                            }
+                            case 4: {
+                                daManager.deleteNVFromDuAn(nvManager.getNhanVienList());
+                                break;
+                            }
+                            case 5: {
+                                // Chinh sua thong tin du an
+                                daManager.edit(pbManager.getPbList());
+                                break;
+                            }
+                            case 6: {
+                                // Tim kiem du an
+                                break;
+                            }
+                            case 7: {
+                                daManager.printList();
+                                break;
+                            }
+                            case 8: {
+                                // In danh sach nhan vien trong du an
+                                daManager.printNVDuAnList(nvManager.getNhanVienList());
+                                break;
+                            }
+                            case 9: {
+                                // In danh sach nhan vien khong co du an nao
+                                break;
+                            }
+                            case 10: {
+                                // In thong tin truong du an
+                                break;
+                            }
+                            default: {
+                                System.out.println("Nhap sai lua chon.");
+                                break;
+                            }
+                        }
+                    }
                     break;
                 }
                 case 7: {
@@ -440,6 +515,7 @@ public class Main {
         System.out.println("||  Nhap 3 de quan ly cham cong.                      ||");
         System.out.println("||  Nhap 4 de quan ly tinh luong.                     ||");
         System.out.println("||  Nhap 5 de quan ly phong ban.                      ||");
+        System.out.println("||  Nhap 6 de quan ly du an.                          ||");
         System.out.println("||  Nhap 7 de xem nhung chuc nang khac.               ||");
         System.out.println("||  Nhap 0 de thoat.                                  ||");
         System.out.println("##====================================================##");
@@ -533,6 +609,35 @@ public class Main {
         System.out.println("|   Nhap 11 de in thong tin cac truong phong.               |");
         System.out.println("|   Nhap 0 de thoat.                                        |");
         System.out.println("#-----------------------------------------------------------#");
+    }
+    
+    public static void duAnMenu() {
+        System.out.println();
+        System.out.println("#------------------------ MENU DU AN -----------------------#");
+        System.out.println("|   Nhap 1 de them du an.                                   |");
+        System.out.println("|   Nhap 2 de them nhan vien vao du an.                     |");
+        System.out.println("|   Nhap 3 de xoa du an.                                    |");
+        System.out.println("|   Nhap 4 de xoa nhan vien khoi du an.                     |");
+        System.out.println("|   Nhap 5 de chinh sua thong tin du an.                    |");
+        System.out.println("|   Nhap 6 de tim kiem du an.                               |");
+        System.out.println("|   Nhap 7 de in danh sach du an.                           |");
+        System.out.println("|   Nhap 8 de in danh sach nhan vien trong du an.           |");
+        System.out.println("|   Nhap 9 de in danh sach nhan vien khong co du an nao.    |");
+        System.out.println("|   Nhap 10 de in thong tin cac truong du an.               |");
+        System.out.println("|   Nhap 0 de thoat.                                        |");
+        System.out.println("#-----------------------------------------------------------#");
+    }
+    
+    public static void editDuAnMenu() {
+        System.out.println();
+        System.out.println("#--------------- MENU CHINH SUA DU AN --------------#");
+        System.out.println("|   Nhap 1 de sua ten du an.                        |");
+        System.out.println("|   Nhap 2 de sua phong ban phu trach du an.        |");
+        System.out.println("|   Nhap 3 de xoa phong ban phu trach du an.        |");
+        System.out.println("|   Nhap 4 de sua kinh phi cho du an.               |");
+        System.out.println("|   Nhap 5 de sua ngay bat dau va ket thuc du an.   |");
+        System.out.println("|   Nhap 0 de thoat.                                |");
+        System.out.println("#---------------------------------------------------#");
     }
 
     public static void searchMenu() {

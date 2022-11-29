@@ -362,15 +362,15 @@ public class luongManager {
             if (isExistInList(thang, nam) == true) {
                 luongList = sortByMaNV();
                 System.out.println("\n============== BANG LUONG " + thang + "/" + nam + " ==============");
-                System.out.println("+-------------------------------------------------------------------------"
+                System.out.println("+--------------------------------------------------------------------"
                         + "-----------------------------------------------------------------------------+");
-                System.out.printf("| %-12s | %-30s | %-20s | %14s | %-10s | %-17s | %-26s |\n", "Ma nhan vien",
-                        "Ho ten nhan vien", "Chuc vu", "Luong co ban", "He so luong", "Tong so ngay cong", "Luong thang (Don vi: dong)");
-                System.out.println("+------------------------------------------------------------------------"
-                        + "------------------------------------------------------------------------------+");
+                System.out.printf("| %-12s | %-30s | %-20s | %18s | %-10s | %-17s | %-17s |\n", "Ma nhan vien",
+                        "Ho ten nhan vien", "Chuc vu", "Luong co ban (VND)", "He so luong", "Tong so ngay cong", "Luong thang (VND)");
+                System.out.println("+--------------------------------------------------------------------"
+                        + "-----------------------------------------------------------------------------+");
                 for (int i = 0; i < luongList.length; ++i) {
                     if (luongList[i].getThang() == thang && luongList[i].getNam() == nam) {
-                        System.out.printf("| %-12s | %-30s | %-20s | %14s | %11s | %17s | %26s |\n",
+                        System.out.printf("| %-12s | %-30s | %-20s | %18s | %11s | %17s | %17s |\n",
                                 luongList[i].getMaNV(), nhanvienManager.getNhanVien(nvList, luongList[i].getMaNV()).getHoTen(),
                                 nhanvienManager.getNhanVien(nvList, luongList[i].getMaNV()).getChucVu(), 
                                 check.changeMoney(luongList[i].getLuongCoBan()), luongList[i].getHeSoLuong(), 
@@ -378,8 +378,8 @@ public class luongManager {
                                 check.changeMoney(luongList[i].getLuong()));
                     }
                 }
-                System.out.println("+----------------------------------------------------------------------"
-                        + "--------------------------------------------------------------------------------+");
+                System.out.println("+--------------------------------------------------------------------"
+                        + "-----------------------------------------------------------------------------+");
             } else {
                 System.out.println("Khong ton tai bang luong " + thang + "/" + nam);
             }
@@ -409,19 +409,19 @@ public class luongManager {
                             System.out.println("\n| Ma nhan vien: " + list[i].getMaNV() + " | Ho va ten: "
                                     + nvList[nhanvienManager.isInList(nvList, maNV)].hoTen + " | Chuc vu: "
                                     + nvList[nhanvienManager.isInList(nvList, maNV)].getChucVu() + " |");
-                            System.out.println("+-------------------------------------------------------------------------------------------+");
-                            System.out.printf("| %-9s | %14s | %-10s | %-17s | %-26s |\n", "Thang/Nam", "Luong co ban", "He so luong",
-                                    "Tong so ngay cong", "Luong thang (Don vi: dong)");
-                            System.out.println("+-------------------------------------------------------------------------------------------+");
+                            System.out.println("+--------------------------------------------------------------------------------------+");
+                            System.out.printf("| %-9s | %18s | %-10s | %-17s | %-17s |\n", "Thang/Nam", "Luong co ban (VND)", "He so luong",
+                                    "Tong so ngay cong", "Luong thang (VND)");
+                            System.out.println("+--------------------------------------------------------------------------------------+");
                         }
-                        System.out.printf("| %2d/%-6d | %14s | %11s | %17s | %26s |\n", list[i].getThang(),
+                        System.out.printf("| %2d/%-6d | %18s | %11s | %17s | %17s |\n", list[i].getThang(),
                                 list[i].getNam(), check.changeMoney(list[i].getLuongCoBan()),
                                 list[i].getHeSoLuong(), chamcongManager.getChamCong(ccList, list[i].getMaNV(),
                                 list[i].getThang(), list[i].getNam()).tongNgayCong(), check.changeMoney(list[i].getLuong()));
                     }
                 }
                 if (count != 0) {
-                    System.out.println("+-------------------------------------------------------------------------------------------+");
+                    System.out.println("+--------------------------------------------------------------------------------------+");
                 } else {
                     System.out.println("Khong co nhan vien trong bang luong");
                 }

@@ -84,7 +84,7 @@ public class THANNHAN implements Serializable, NhapXuat {
         System.out.print("Gioi tinh than nhan -> ");
         this.gioiTinh = check.kiemTraGioiTinh();
         System.out.println("Ngay sinh than nhan: ");
-        this.ngaySinhThanNhan.nhapNgay();
+        this.ngaySinhThanNhan.nhap();
         System.out.print("Quan he than nhan -> ");
         this.quanHeThanNhan = check.kiemTraChuoiKyTu();
     }
@@ -96,7 +96,7 @@ public class THANNHAN implements Serializable, NhapXuat {
         System.out.print("Gioi tinh than nhan -> ");
         this.gioiTinh = check.kiemTraGioiTinh();
         System.out.println("Ngay sinh than nhan: ");
-        this.ngaySinhThanNhan.nhapNgay();
+        this.ngaySinhThanNhan.nhap();
         System.out.print("Quan he than nhan -> ");
         this.quanHeThanNhan = check.kiemTraChuoiKyTu();
     }

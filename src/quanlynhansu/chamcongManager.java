@@ -155,7 +155,7 @@ public class chamcongManager {
 
     public void add(NHANVIEN[] nvList) {
         checkFirst(nvList);
-        String choice1 = "Y", choice2 = "Y";
+        String choice1 = "Y", choice2;
         while (choice1.equals("Y")) {
             System.out.print("Moi nhap nam: ");
             int nam = (int) CHECK.kiemTraSoNguyenDuong();

@@ -40,7 +40,7 @@ public class THUCTAPSINH extends NHANVIEN {
         System.out.print("Ho ten nhan vien: ");
         this.hoTen = check.kiemTraHoTen();
         System.out.println("Ngay sinh: ");
-        this.ngaySinh.nhapNgay();
+        this.ngaySinh.nhap();
         System.out.print("Gioi tinh (Nam / Nu): ");
         this.gioiTinh = check.kiemTraGioiTinh();
         System.out.print("So dien thoai: ");

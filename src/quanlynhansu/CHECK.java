@@ -174,7 +174,7 @@ public class CHECK implements Serializable {
             input = Main.scan.nextLine();
             input = input.trim();
             if (input.matches("Nam|nam|Nu|nu")) {
-                return Main.inHoaChuCaiDauTienCuaChuoi(input);
+                return Main.inHoaDuyNhatChuCaiDauTien(input);
             } else {
                 System.out.print("Khong hop le! Moi nhap lai theo dinh dang (nam / nu): ");
             }
@@ -206,7 +206,7 @@ public class CHECK implements Serializable {
             input = Main.scan.nextLine();
             input = input.trim();
             if (input.matches("[a-zA-Z\\s]+")) {
-                return Main.inHoaChuCaiDauTienCuaChuoi(input);
+                return Main.inHoaDuyNhatChuCaiDauTien(input);
             } else {
                 System.out.print("Khong hop le! Moi nhap lai: ");
             }
@@ -250,6 +250,20 @@ public class CHECK implements Serializable {
                 System.out.println("Ma phong khong hop le! Ma phong ban phai la 2 chu cai viet hoa (VD: IT)");
             }
             System.out.print("Moi nhap ma phong ban: ");
+        }
+    }
+    
+    public String kiemTraMaDuAn() {
+        String input;
+        while (true) {
+            input = Main.scan.nextLine();
+            input = input.trim();
+            if (input.matches("[A-Z]{2}[0-9]{3}")) {
+                return input;
+            } else {
+                System.out.println("Ma du an khong hop le! Ma du an phai co 2 chu cai dau viet hoa va ba so bat ky (VD: HN133)");
+            }
+            System.out.print("Moi nhap ma du an: ");
         }
     }
 
