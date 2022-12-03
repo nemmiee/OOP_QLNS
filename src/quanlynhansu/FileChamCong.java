@@ -16,7 +16,7 @@ import java.io.ObjectOutputStream;
 
 public class FileChamCong {
     
-    private static final String CHAMCONG_FILE_NAME = "D:/Study Space/HK1_2022_2023/OOP_QLNS/QUANLYNHANSU/chamcong.txt";
+    private static final String CHAMCONG_FILE_NAME = "../QUANLYNHANSU/chamcong.txt";
     
     public void write(CHAMCONG[] ccList) {
         FileOutputStream fos = null;
@@ -36,7 +36,6 @@ public class FileChamCong {
             closeStream(oos);
         }
     }
-    
     public CHAMCONG[] read() {
         CHAMCONG[] ccList = null;
         FileInputStream fis = null;

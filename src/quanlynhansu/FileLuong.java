@@ -16,7 +16,7 @@ import java.io.ObjectOutputStream;
 
 public class FileLuong {
     
-    private static final String LUONG_FILE_NAME = "D:/Study Space/HK1_2022_2023/OOP_QLNS/QUANLYNHANSU/luong.txt";
+    private static final String LUONG_FILE_NAME = "luong.txt";
     
     public void write(LUONG[] luongList) {
         FileOutputStream fos = null;

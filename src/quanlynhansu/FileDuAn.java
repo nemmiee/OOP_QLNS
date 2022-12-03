@@ -15,7 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class FileDuAn {
-    private static final String DUAN_FILE_NAME = "../QUANLYNHANSU/duan.txt";
+    private static final String DUAN_FILE_NAME = "duan.txt";
     
     public void write(DUAN[] daList) {
         FileOutputStream fos = null;

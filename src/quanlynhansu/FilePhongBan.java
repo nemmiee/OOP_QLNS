@@ -15,7 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class FilePhongBan {
-    private static final String PHONGBAN_FILE_NAME = "D:/Study Space/HK1_2022_2023/OOP_QLNS/QUANLYNHANSU/phongban.txt";
+    private static final String PHONGBAN_FILE_NAME = "phongban.txt";
     
     public void write(PHONGBAN[] pbList) {
         FileOutputStream fos = null;
